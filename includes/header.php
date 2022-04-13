@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Autofixpert</title>
@@ -29,7 +30,7 @@
 <div class="container">
 <div class="row justify-content-between">
 <div class="col-md-3 d-flex align-items-center">
-<a class="navbar-brand" href="index.php">Autorepair<span>.</span></a>
+<a class="navbar-brand" href="index.php">AutoFixpert<span>.</span></a>
 </div>
 <div class="col-md-7">
 <div class="row">

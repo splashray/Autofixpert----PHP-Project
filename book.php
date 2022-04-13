@@ -13,7 +13,7 @@
 <h1 class="mb-4">AutoFixpert <br>
      is  the <br>
 Solution</h1>
-<p><a href="#" class="btn btn-primary">Create an Account </a></p>
+<p><a href="signup.php" class="btn btn-primary">Create an Account </a></p>
 </div>
 </div>
 </div>

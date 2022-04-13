@@ -1,0 +1,231 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.loginUI {
+    padding: 2%;
+    margin-top: 2%;
+}
+
+.headTitle {
+    color: #2b2bff;
+    width: 100%;
+    text-align: center;
+}
+
+.headTitle h1 {
+    font-size: 3rem;
+    padding: 0;
+    margin-bottom: 1%;
+}
+
+.headTitle p {
+    font-size: 1.2rem;
+}
+
+.loginUI main {
+    margin: 3% auto;
+    padding: 1%;
+    width: 80%;
+}
+
+main h2 {
+    text-align: center;
+    font-size: x-large;
+}
+
+main form {
+    padding: 1%;
+    padding-bottom: 3%;
+    display: block;
+    margin: 3% auto;
+    width: 50vw;
+    border-radius: 15px;
+    box-shadow: 2px 2px 15px grey;
+    background-color: #eff3fa;
+}
+
+main form label {
+    display: block;
+    width: 75%;
+    margin: 5% auto;
+}
+
+main form span {
+    font-size: larger;
+    margin-bottom: 1%;
+}
+
+main form input,
+form label textarea {
+    display: block;
+    font-size: large;
+    padding-left: 10%;
+    border: 1px solid #7eb5fc;
+    width: 100%;
+    border-radius: 10px;
+    height: 45px;
+}
+
+form .inputHolder {
+    position: relative;
+}
+
+.inputHolder .icon {
+    padding: 2%;
+    background-color: black;
+    border-radius: 10px 0 0 10px;
+    color: #7eb5fc;
+    position: absolute;
+    font-size: x-large;
+    font-weight: 700;
+    top: 3.5%;
+    left: 0;
+}
+
+main form a {
+    color: white;
+}
+
+main form button {
+    display: block;
+    margin: auto;
+    margin-top: 5%;
+    width: 50%;
+    padding: 2%;
+    font-weight: 600;
+    font-size: larger;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    background-color: #2b2bff;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px #c0bfbf;
+    transition: .3s;
+}
+
+main form button:hover {
+    background-color: #040494;
+}
+
+main .signUp {
+    text-align: center;
+    font-size: medium;
+}
+
+.signUp a {
+    color: inherit;
+}
+
+form label textarea {
+    resize: none;
+    height: 100px;
+    padding: 2%;
+}
+
+main .authBtns {
+    display: block;
+    text-decoration: none;
+    box-shadow: 2px 2px 15px grey;
+    width: 40%;
+    padding: 2%;
+    border-radius: 10px;
+    background-color: #2b2bff;
+    margin: 5% auto;
+    text-align: center;
+    color: white;
+    font-size: x-large;
+    font-weight: 700;
+}
+
+main .authBtns:nth-child(1) {
+    background-color: transparent;
+    border: 1px solid #2b2bff;
+    color: #040494;
+}
+
+main .authBtns:hover {
+    background-color: #2b2bff;
+    border: none;
+    color: white;
+}
+
+main .authBtns:nth-child(2):hover {
+    background-color: transparent;
+    border: 1px solid #2b2bff;
+    color: #040494;
+}
+
+@media (max-width: 425px) {
+    .loginUI {
+        margin-top: 10%;
+    }
+
+    .loginUI main {
+        width: 100%;
+    }
+
+    .headTitle h1 {
+        font-size: 2rem;
+        padding: 0;
+        margin-bottom: 1%;
+    }
+
+    .headTitle p {
+        font-size: .8rem;
+    }
+
+    .loginUI .signBtn {
+        margin-top: 20%;
+    }
+
+    main .authBtns {
+        width: 75%;
+        margin: 15% auto;
+        box-shadow: 1px 1px 5px grey;
+    }
+
+    main form {
+        margin-top: 5%;
+        width: 90vw;
+    }
+    
+    main form span {
+        font-size: medium;
+        margin-bottom: 1%;
+    }
+
+    main form label {
+        width: 95%;
+        margin: 10% auto;
+    }
+
+    main form input,
+    form label textarea {
+        display: block;
+        font-size: medium;
+        padding-left: 20%;
+        border: 1px solid #7eb5fc;
+        width: 100%;
+        border-radius: 10px;
+        height: 40px;
+    }
+
+    form label textarea {
+        height: 100px;
+        padding: 2%;
+    }
+
+    main form button {
+        margin-top: 15%;
+        padding: 3%;
+    }
+
+    main .signUp {
+        margin-top: 10%;
+    }
+}
