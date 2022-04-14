@@ -14,8 +14,10 @@
 <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
 <li class="nav-item"><a href="#serve" class="nav-link">Services</a></li>
 <li class="nav-item"><a href="#project" class="nav-link">Project</a></li>
-<li class="nav-item"><a href="#appoints" class="nav-link">Contact</a></li>
-<li class="nav-item"><a href="signin.php" class="nav-link">Sign In</a></li>
+<li class="nav-item"><a href="#appoints" class="nav-link">Send Service Request</a></li>
+<li class="nav-item"><a href="#" class="nav-link">Check Service Request</a></li>
+<li class="nav-item"><a href="#footer" class="nav-link">Contact Us</a></li>
+
 
 </ul>
 </div>

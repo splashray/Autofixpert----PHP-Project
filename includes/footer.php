@@ -1,5 +1,5 @@
 
-<footer class="footer ftco-section">
+<footer id="footer" class="footer ftco-section">
 <div class="container">
 <div class="row mb-5">
 <div class="col-md-6 col-lg">

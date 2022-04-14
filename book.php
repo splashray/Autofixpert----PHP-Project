@@ -13,7 +13,10 @@
 <h1 class="mb-4">AutoFixpert <br>
      is  the <br>
 Solution</h1>
-<p><a href="signup.php" class="btn btn-primary">Create an Account </a></p>
+<p><a href="#appoints" class="btn btn-primary">Send service Request </a></p>
+
+<p><a href="#" class="btn btn-primary">Check service Request </a></p>
+
 </div>
 </div>
 </div>
@@ -33,7 +36,7 @@ Solution</h1>
 </div>
 <h2 class="mb-0">Are you ready? <span>  <br>   Let's repair it now!</span></h2>
 </div>
-<a href="#appoints" class="bg-primary btn-custom d-flex align-items-center"><span>Book an appointment  </span></a>
+<a href="#appoints" class="bg-primary btn-custom d-flex align-items-center"><span>Send/Check Service Request  </span></a>
 </div>
 </div>
 </div>

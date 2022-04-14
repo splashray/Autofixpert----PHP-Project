@@ -41,8 +41,8 @@ $message = mysqli_real_escape_string($conn, $message);
 <div class="container">
 <div class="row d-md-flex justify-content-end">
 <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate heading-section heading-section-white fadeInUp ftco-animated">
-<span class="subheading">Booking an Appointment</span>
-<h2 class="mb-4">Free Consultation</h2>
+<h2 class="mb-4">Book a Service Request</h2>
+<span class="subheading">Competent and Professional Mechanical Engineers Available</span>
 <form  class="appointment" method="post">
 <div class="row">
 <div class="col-md-12">
@@ -106,12 +106,12 @@ $type = $conn->query("SELECT * FROM services ");
 </div>
 <div class="col-md-12">
 <div class="form-group">
-<textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+<textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message/Address"></textarea>
 </div>
 </div>
 <div class="col-md-12">
 <div class="form-group">
-<input type="submit" name="submit" value="Send message" class="btn btn-dark py-3 px-4">
+<input type="submit" name="submit" value="Send Request" class="btn btn-dark py-3 px-4">
 </div>
 </div>
 </div>
