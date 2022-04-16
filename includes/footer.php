@@ -27,7 +27,7 @@
 <div class="block-23 mb-3">
 <ul>
 <li><span class="icon fa fa-map-marker"></span><span class="text">Kwara Poly Ilorin</span></li>
-<li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2349023456789</span></a></li>
+<li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2349012345678</span></a></li>
 <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@autofixpert.com.ng</span></a></li>
 </ul>
 </div>

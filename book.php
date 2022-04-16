@@ -13,9 +13,9 @@
 <h1 class="mb-4">AutoFixpert <br>
      is  the <br>
 Solution</h1>
-<p><a href="#appoints" class="btn btn-primary">Send service Request </a></p>
+<p><a href="sign-up.php" class="btn btn-primary">Sign-Up with Us </a></p>
 
-<p><a href="#" class="btn btn-primary">Check service Request </a></p>
+<p><a href="sign-in.php" class="btn btn-primary">Sign-In To Your Account </a></p>
 
 </div>
 </div>

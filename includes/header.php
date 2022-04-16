@@ -43,7 +43,7 @@
 <div class="col">
 <div class="top-wrap d-flex">
 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-location-arrow"></span></div>
-<div class="text"><span>Call us</span><span>(+234)9023456789</span></div>
+<div class="text"><span>Call us</span><span>(+234)9012345678</span></div>
 </div>
 </div>
 <div class="col-md-3 d-flex justify-content-end align-items-center">
