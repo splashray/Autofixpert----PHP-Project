@@ -1,0 +1,64 @@
+.checkModal {
+    transform: scale(0, 0);
+    transition: .3s;
+}
+
+.checkModal,
+.checkModal .overlay {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+.checkModal .overlay {
+    background-color: #00000080;
+}
+
+.checkModal .modalMssg {
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.41);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 5%;
+    left: 25vw;
+    padding: 3%;
+    height: 60vh;
+    width: 50vw;
+    z-index: 2;
+}
+
+.modalMssg .mssgHolder {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2%;
+    margin: 2% auto;
+}
+
+.mssgHolder p {
+    box-shadow: 0px 1px 5px grey;
+    border-radius: 10px;
+    padding: 0 2%;
+}
+
+.mssgHolder p span {
+    font-weight: 600;
+    font-size: large;
+}
+
+@media (max-width: 425px) {
+    .checkModal .modalMssg {
+        width: 99vw;
+        left: 0.5vw;
+    }
+
+    .modalMssg .mssgHolder {
+        margin-top: 5%;
+    }
+}
