@@ -60,42 +60,79 @@ if (strlen($_SESSION['id']==0)) {
                                     <!-- container start here -->
 
 
-                                    <div class="page-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="card">
+  <?php
+
+$uemail= $_SESSION['email'];
+ 
+$query = "SELECT * FROM  appointment WHERE email = '$uemail' ";
+$display_query = mysqli_query($conn, $query);
+
+while($row= mysqli_fetch_array($display_query)){
+?>
+
+                                    <!-- end of conatiner -->
+                                    <div class="col-md-12 col-xl-6">
+                                                <div class="card project-task">
                                                     <div class="card-header">
-                                                        <h5>Hello card</h5>
-                                                        <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-                                                        <div class="card-header-right">
-                                                            <ul class="list-unstyled card-option" style="width: 35px;">
-                                                                <li class=""><i class="icofont icofont-simple-left"></i></li>
+                                                        <!-- <div class="card-header-left ">
+                                                            <h5>Time spent : project &amp; task</h5>
+                                                        </div>
+                                                        <div class="card-header-right" >
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="icofont icofont-simple-left "></i></li>
                                                                 <li><i class="icofont icofont-maximize full-card"></i></li>
                                                                 <li><i class="icofont icofont-minus minimize-card"></i></li>
                                                                 <li><i class="icofont icofont-refresh reload-card"></i></li>
                                                                 <li><i class="icofont icofont-error close-card"></i></li>
                                                             </ul>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
-                                                    <div class="card-block">
-                                                        <p>
-                                                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                                            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                                            nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                                            sunt in culpa qui officia deserunt mollit anim id est laborum."
-                                                        </p>
+
+                                    <div class="card-block p-b-10">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Mechanical Request</th>
+                                                                        <th>Time Spents</th>
+                                                                    </tr>
+                                                                </thead>
+        
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="task-contain">
+                                                                                <h6 class="bg-c-blue d-inline-block text-center">U</h6>
+
+
+                                                                                <p class="d-inline-block m-l-20">
+                                <?php  
+                                if(isset($row['request_type'])) {   echo $row['request_type']; }     
+                                 ?>        
+                                                                       
+
+                                                                                </p>
+                                                                            </div>  
+                                                                        </td>
+                                                                        <td>
+                                                                            <p class="d-inline-block m-r-20">10 : 36</p>
+                                                                            <div class="progress d-inline-block">
+                                                                                <div class="progress-bar bg-c-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                   
+                                                                </tbody>                         
+                                                            </table>
+                                                           
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-
-
-
-                                    <!-- end of conatiner -->
+<!-- end of task -->   <?php 
+                                                         }
+                                                         ?>
            
 
 <?php } include_once('./includes/user_footer.php') ?>

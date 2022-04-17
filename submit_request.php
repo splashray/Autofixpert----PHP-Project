@@ -9,6 +9,52 @@ if (strlen($_SESSION['id']==0)) {
 
             
   } else{
+
+
+    if(isset($_POST['submits']))
+    {
+    $service=$_POST['optservices'];
+    $request=$_POST['optrequest'];
+    $name=$_POST['name'];
+    $vnum=$_POST['vnum'];
+    $email=$_POST['email'];
+    $phone=$_POST['phone'];
+    $date=$_POST['date'];
+    $time=$_POST['time'];
+    $address=$_POST['address'];
+    $message=$_POST['info'];
+  
+    
+    $service = mysqli_real_escape_string($conn, $service);
+    $request = mysqli_real_escape_string($conn, $request);
+    $name = mysqli_real_escape_string($conn, $name);
+    $vnum = mysqli_real_escape_string($conn, $vnum);
+    $email = mysqli_real_escape_string($conn, $email);
+    $phone = mysqli_real_escape_string($conn, $phone);
+    $date = mysqli_real_escape_string($conn, $date);
+    $time = mysqli_real_escape_string($conn, $time);
+    $address = mysqli_real_escape_string($conn, $address);
+    $message = mysqli_real_escape_string($conn, $message);
+    
+      
+       
+                    $msg  = "INSERT into appointment(services,request_type,name,vehicle_num,email,phone,date,time,message,address) ";
+                    $msg .="VALUES('$service','$request','$name','$vnum','$email','$phone','$date','$time','$message','$address') ";
+
+                     $order_query = mysqli_query($conn,$msg);
+                     if(!$order_query){
+                         die("Query Failed". mysqli_error($conn));
+                     }
+                    
+                if($order_query)
+                {
+                    echo "<script>alert('Request successfully Booked');</script>";
+                    echo "<script type='text/javascript'> document.location = 'submit_request.php'; </script>";
+                }
+            
+    }
+        
+         
    
 
 ?>
@@ -74,7 +120,9 @@ if (strlen($_SESSION['id']==0)) {
                                          <!-- Tooltips on textbox card start -->
                                                
                                                 <div class="card-block tooltip-icon button-list">
-                                                    <form action="orders.php" method="post">
+
+                                                    <form method="post">
+
                                                 <div class="input-group">
                                                         <span class="input-group-addon" id="name"><i class="ti-layout-media-right"></i></span>
                                                         <select name="optservices" id="services" class="form-control" title="Enter Services" data-toggle="tooltip" required />
@@ -110,7 +158,7 @@ if (strlen($_SESSION['id']==0)) {
                                                     
                                                     <div class="input-group">
                                                         <span class="input-group-addon" id="vhn"><i class="ti-car"></i></span>
-                                                        <input type="phone" name="vhn" class="form-control" placeholder="Enter Your Vehicle Plate Number" title="Enter Your Vehicle Plate Number" data-toggle="tooltip" required />
+                                                        <input type="phone" name="vnum" class="form-control" placeholder="Enter Your Vehicle Plate Number" title="Enter Your Vehicle Plate Number" data-toggle="tooltip" required />
                                                      </div>
                                             
                                                     <div class="input-group">
@@ -148,7 +196,7 @@ if (strlen($_SESSION['id']==0)) {
                                                         <textarea  name="info" rows="5" class="form-control" title="Enter Addtional Informations" data-toggle="tooltip" required > </textarea>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary" name="services">Submit Request 
+                                                    <button type="submit" class="btn btn-primary" name="submits">Submit Request 
                                                     </button>
 
                                                     </form>

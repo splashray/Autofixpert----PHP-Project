@@ -10,7 +10,7 @@ $phone=$_POST['phone'];
 $date=$_POST['date'];
 $time=$_POST['time'];
 $message=$_POST['message'];
-$request=$_POST['request'];
+// $request=$_POST['request'];
 
 $service = mysqli_real_escape_string($conn, $service);
 $name = mysqli_real_escape_string($conn, $name);
@@ -20,7 +20,7 @@ $phone = mysqli_real_escape_string($conn, $phone);
 $date = mysqli_real_escape_string($conn, $date);
 $time = mysqli_real_escape_string($conn, $time);
 $message = mysqli_real_escape_string($conn, $message);
-$request = mysqli_real_escape_string($conn, $request);
+// $request = mysqli_real_escape_string($conn, $request);
 
   
    

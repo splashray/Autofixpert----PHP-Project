@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2022 at 01:22 AM
+-- Generation Time: Apr 17, 2022 at 02:49 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -41,25 +41,35 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `appointment` (
   `id` int(10) NOT NULL,
+  `request_ref` varchar(255) NOT NULL,
   `services` varchar(255) NOT NULL,
+  `request_type` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `vehicle_num` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `date` varchar(255) NOT NULL,
-  `time` time NOT NULL,
-  `message` varchar(255) NOT NULL
+  `time` varchar(255) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL DEFAULT 'UnRegistred User',
+  `status` int(2) NOT NULL DEFAULT 0 COMMENT '0="not verify",1="verified"'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `appointment`
 --
 
-INSERT INTO `appointment` (`id`, `services`, `name`, `vehicle_num`, `email`, `phone`, `date`, `time`, `message`) VALUES
-(1, '3', 'John', '13344', 'accurate@gmail.com', '0908993555', '0000-00-00', '12:00:00', 'test1'),
-(2, '4', 'seyi', '363', 'fichub4@gmail.com', '0705235653', '0000-00-00', '02:30:00', 'test3'),
-(3, '4', 'seyi', '363', 'fichub4@gmail.com', '0705235653', '4/21/2022', '02:30:00', 'test3'),
-(4, '2', 'doe', '1334421', 'splashraycreations@gmail.com', '0902763637', '4/12/2022', '10:00:00', 'This is john testing');
+INSERT INTO `appointment` (`id`, `request_ref`, `services`, `request_type`, `name`, `vehicle_num`, `email`, `phone`, `date`, `time`, `message`, `address`, `status`) VALUES
+(1, '', '3', '', 'John', '13344', 'accurate@gmail.com', '0908993555', '0000-00-00', '12:00:00', 'test1', '0', 0),
+(2, '', '4', '', 'seyi', '363', 'fichub4@gmail.com', '0705235653', '0000-00-00', '02:30:00', 'test3', '0', 0),
+(3, '', '4', '', 'seyi', '363', 'fichub4@gmail.com', '0705235653', '4/21/2022', '02:30:00', 'test3', '0', 0),
+(4, '', '2', '', 'doe', '1334421', 'splashraycreations@gmail.com', '0902763637', '4/12/2022', '10:00:00', 'This is john testing', '0', 0),
+(5, '', '1', 'pick-up', 'John', '13344', 'osuolale97@gmail.com', '0705235653', '5/19/2022', '12:30:00', 'test', '', 0),
+(6, '', '3', 'drop-off', 'Accurate', '1334421', 'splashraycreations@gmail.com', '0705235653', '4/19/2022', '1:30am', 'esrwargc', '', 0),
+(7, '', '4', 'pick-up', 'seyi', '1334421', 'joel@gmail.com', '0705235653', '4/27/2022', '3:00am', 'look', 'UnRegistred User', 0),
+(8, '', '2', 'drop-off', 'john', '1334421', 'Display123@gmail.com', '0902763637', '2022-05-06', '01:57', 'working ', ' error', 0),
+(9, '', '4', 'pick-up', 'test', '13344', 'Display123@gmail.com', '24999', '2022-04-14', '18:30', 'ilorin ', ' ilorin, kwara state', 0),
+(10, '', '4', 'pick-up', 'seyi', '13344', 'Display123@gmail.com', '0705235653', '2022-04-29', '02:38', 'finally okay ', ' testing area', 0);
 
 -- --------------------------------------------------------
 
@@ -126,7 +136,8 @@ INSERT INTO `services` (`id`, `services`) VALUES
 (2, 'Engine Repair\r\n'),
 (3, 'Battery Replace\r\n'),
 (4, 'Change Tire\r\n'),
-(5, 'Tow Truck');
+(5, 'Tow Truck'),
+(7, 'Driving-School');
 
 -- --------------------------------------------------------
 
@@ -205,7 +216,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `mechanics`
@@ -223,7 +234,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
