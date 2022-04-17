@@ -160,8 +160,8 @@ if (strlen($_SESSION['id']==0)) {
                                                         <span class="input-group-addon" id="request"><i class="ti-shopping-cart"></i></span>
                                                         <select name="optrequest" id="request" class="form-control" title="Enter Request Type" data-toggle="tooltip" required />
                                                         <option value=''>Choose Request Type </option>
-                                                        <option value='pick-up'>Pick Up </option>
-                                                        <option value='drop-off'>Drop Off </option>
+                                                        <option value='Pick-up'>Pick Up </option>
+                                                        <option value='Drop-off'>Drop Off </option>
 
                                                         </select>
                                                     </div>

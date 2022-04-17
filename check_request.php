@@ -18,21 +18,7 @@ if (strlen($_SESSION['id'] == 0)) {
         <div class="pcoded-wrapper">
             <?php include_once('./includes/user_sidebar.php');  ?>
 
-            <!-- THE MODAL WINDOW -->
-            <div id="checkModal" class="checkModal">
-                <div id="overlay" class="overlay"></div>
-                <div class="modalMssg">
-                    <h3>Request Details</h3>
-                    <div class="mssgHolder">
-                        <p>Mechanical Service: <span>Engine Oil</span></p>
-                        <p>Request Type: <span>Engine Oil</span></p>
-                        <p>Vehicle Plate No.: <span>Engine Oil</span></p>
-                        <p>Date and Time: <span>Engine Oil</span></p>
-                        <p>Address: <span>Engine Oil</span></p>
-                    </div>
-                </div>
-            </div>
-            <!-- END OF MODAL WINDOW -->
+            
 
             <div class="pcoded-content">
                 <div class="pcoded-inner-content">
@@ -82,24 +68,16 @@ if (strlen($_SESSION['id'] == 0)) {
                             $display_query = mysqli_query($conn, $query);
 
                             while ($row = mysqli_fetch_array($display_query)) {
+                             $ref = $row['request_ref'];
+
+
                             ?>
 
                                 <!-- end of conatiner -->
                                 <div class="col-md-12 col-xl-6">
                                     <div class="card project-task">
                                         <div class="card-header">
-                                            <!-- <div class="card-header-left ">
-                                        <h5>Time spent : project &amp; task</h5>
-                                    </div>
-                                    <div class="card-header-right" >
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="icofont icofont-simple-left "></i></li>
-                                            <li><i class="icofont icofont-maximize full-card"></i></li>
-                                            <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                            <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                            <li><i class="icofont icofont-error close-card"></i></li>
-                                        </ul>
-                                    </div> -->
+                                     
                                         </div>
 
                                         <div class="card-block p-b-10">
@@ -107,7 +85,7 @@ if (strlen($_SESSION['id'] == 0)) {
                                                 <table class="table table-hover">
                                                     <thead>
                                                         <tr>
-                                                            <th>Mechanical Request</th>
+                                                            <th> Reference No</th>
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>
@@ -116,13 +94,13 @@ if (strlen($_SESSION['id'] == 0)) {
                                                         <tr>
                                                             <td>
                                                                 <div class="task-contain">
-                                                                    <h6 class="bg-c-blue d-inline-block text-center">U</h6>
+                                                                    <h6 class="bg-c-blue d-inline-block text-center">M</h6>
 
 
                                                                     <p class="d-inline-block m-l-20">
                                                                         <?php
-                                                                        if (isset($row['request_ref'])) {
-                                                                            echo $row['request_ref'];
+                                                                        if (isset($ref)) {
+                                                                            echo $ref;     
                                                                         }
                                                                         ?>
 
@@ -131,12 +109,11 @@ if (strlen($_SESSION['id'] == 0)) {
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <a href="#" class="viewModal">
+                                                            <a href="view=<?php echo $ref; ?>" class="viewModal">
                                                                     <p class="d-inline-block m-r-20">Click Here</p>
                                                                 </a>
-                                                                <div class="progress d-inline-block">
-                                                                    <div class="progress-bar bg-c-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                                                                    </div>
+                                                                <div class=" d-inline-block">
+                                                                  
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -151,6 +128,56 @@ if (strlen($_SESSION['id'] == 0)) {
                                 <!-- end of task --> <?php
                                                     }
                                                         ?>
+
+
+
+
+            <!-- THE MODAL WINDOW -->
+            <div id="checkModal" class="checkModal">
+                <div id="overlay" class="overlay">
+                </div>
+                <div class="modalMssg">
+                    <h3>Request Details</h3>     
+                <?php
+
+                //Check the value for $refvalue in the click link 
+                // the value is actually my own refvalue from the form i submitted
+
+                $refvalue = 51599105;
+                $query = "SELECT * FROM  appointment WHERE request_ref = '$refvalue' ";
+                $display_query = mysqli_query($conn, $query);
+                while ($row = mysqli_fetch_array($display_query)) 
+                {
+                ?>          
+                    <div class="mssgHolder">
+                        <p>Mechanical Service: <span>
+                            <?php if($row['services'] == 1): ?>
+                                <span class="badge badge-warning"> Engine Repair </span>
+                            <?php elseif($row['services'] == 2): ?>
+                                <span class="badge badge-info"> Battery Replace</span>
+                            <?php elseif($row['services'] == 3): ?>
+                                <span class="badge badge-primary"> Change Tire</span>
+                            <?php elseif($row['services'] == 4): ?>
+                                <span class="badge badge-success">Tow Truck</span>
+                            <?php elseif($row['services'] == 5): ?>
+                                <span class="badge badge-danger">Driving-School</span>
+                            <?php endif; ?>
+                        </span></p>
+                        <p>Request Type: <span><?php echo $row['request_type']; ?></span></p>
+                        <p>Vehicle Plate No: <span><?php echo $row['vehicle_num']; ?></span></p>
+                        <p>Date: <span><?php echo $row['date']; ?></span></p>
+                        <p>Time: <span><?php echo $row['time']; ?></span></p>
+                        <p>Email: <span><?php echo $row['email']; ?></span></p>
+                        <p>Phone: <span><?php echo $row['phone']; ?></span></p>
+                        <p>Address: <span><?php echo $row['address']; ?> </span></p>
+                    </div>
+                </div> <?php } ?>
+               
+            </div>
+            <!-- END OF MODAL WINDOW -->
+
+
+
 
 
                         <?php }
