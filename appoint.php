@@ -10,6 +10,7 @@ $phone=$_POST['phone'];
 $date=$_POST['date'];
 $time=$_POST['time'];
 $message=$_POST['message'];
+$request=$_POST['request'];
 
 $service = mysqli_real_escape_string($conn, $service);
 $name = mysqli_real_escape_string($conn, $name);
@@ -19,9 +20,11 @@ $phone = mysqli_real_escape_string($conn, $phone);
 $date = mysqli_real_escape_string($conn, $date);
 $time = mysqli_real_escape_string($conn, $time);
 $message = mysqli_real_escape_string($conn, $message);
+$request = mysqli_real_escape_string($conn, $request);
+
   
    
-                $msg=mysqli_query($conn,"INSERT into appointment(services,name,vehicle_num,email,phone,date,time,message) VALUES('$service','$name','$vnum','$email','$phone','$date','$time','$message')");
+                $msg=mysqli_query($conn,"INSERT into appointment(services,request_type,name,vehicle_num,email,phone,date,time,message) VALUES('$service','$request','$name','$vnum','$email','$phone','$date','$time','$message')");
     
             if($msg)
             {
@@ -45,7 +48,7 @@ $message = mysqli_real_escape_string($conn, $message);
 <span class="subheading">Competent and Professional Mechanical Engineers Available</span>
 <form  class="appointment" method="post">
 <div class="row">
-<div class="col-md-12">
+<div class="col-md-6">
 <div class="form-group">
 <div class="form-field">
 <div class="select-wrap">
@@ -66,6 +69,22 @@ $type = $conn->query("SELECT * FROM services ");
 </div>
 </div>
 </div>
+
+<div class="col-md-6">
+<div class="form-group">
+<div class="form-field">
+<div class="select-wrap">
+<div class="icon"><span class="fa fa-chevron-down"></span></div>
+<select name="request" id="request" class="form-control">
+<option value="">Select Request Type</option>
+<option value='pick-up'>Pick Up </option>
+ <option value='drop-off'>Drop Off </option>     
+</select>
+</div>
+</div>
+</div>
+</div>
+
 <div class="col-md-6">
 <div class="form-group">
 <input type="text" name="name" class="form-control" placeholder="Your Name">

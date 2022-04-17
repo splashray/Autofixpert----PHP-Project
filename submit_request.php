@@ -125,17 +125,30 @@ if (strlen($_SESSION['id']==0)) {
 
                                                    
                                                     <div class="input-group">
-                                                        <span class="input-group-addon" id="bname"><i class="ti-envelope"></i></span>
-                                                        <input type="text" name="bname" class="form-control" placeholder="Enter your brand name" title="Enter your brand name" data-toggle="tooltip" required />
+                                                        <span class="input-group-addon" id="date"><i class="ti-alarm-clock"></i></span>
+                                                        <input type="date" data-date-inline-picker="true" name="date" class="form-control" placeholder="Enter Date" title="Enter Date" data-toggle="tooltip" required />
                                                     </div>
-                                                    <h6 align="center">Enter in details what you want us to offer you </h6>
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon" id="time"><i class="ti-time"></i></span>
+                                                        <input type="time" data-time-inline-picker="true" name="time" class="form-control" placeholder="Enter Time" title="Enter Time" data-toggle="tooltip" required />
+                                                    </div>
+
+                                                    <h6 align="center">Your Address </h6>
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon" id="address"><i class="ti-direction"></i></span>
+                                                        <textarea  name="address" rows="5" class="form-control" title="Enter Your Address" data-toggle="tooltip" required > </textarea>
+                                                    </div>
+
+                                                    <h6 align="center">Enter Addtional Informations </h6>
 
                                                     <div class="input-group">
                                                         <span class="input-group-addon" id="info"><i class="ti-comments"></i></span>
-                                                        <textarea  name="info" rows="5" class="form-control" title="Enter in details what you want us to offer you" data-toggle="tooltip" required > </textarea>
+                                                        <textarea  name="info" rows="5" class="form-control" title="Enter Addtional Informations" data-toggle="tooltip" required > </textarea>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary" name="services">Submit Service Order 
+                                                    <button type="submit" class="btn btn-primary" name="services">Submit Request 
                                                     </button>
 
                                                     </form>
