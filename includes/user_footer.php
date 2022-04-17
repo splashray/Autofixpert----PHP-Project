@@ -15,6 +15,8 @@
 	</a>
 </div>
 
+<!-- modal script -->
+<script src="./js/modal.js"></script>
 
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
