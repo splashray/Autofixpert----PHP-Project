@@ -36,24 +36,10 @@ if (strlen($_SESSION['id']==0)) {
     $address = mysqli_real_escape_string($conn, $address);
     $message = mysqli_real_escape_string($conn, $message);
     
-    $data = 0;
-                                      
-    $ref_no = mt_rand(1,99999999);
-    $i= 1;
-
-        while($i== 1){
-            $check = mysqli_query($conn,"SELECT * FROM appointment where request_ref ='$ref_no' ")->num_rows;
-            if($check > 0){
-            $ref_no = mt_rand(1,99999999);
-            }else{
-                $i = 0;
-            }
-        }
-        $data .= " , request_ref = '$ref_no' ";
-    
+      
        
-                    $msg  = "INSERT into appointment(request_ref,services,request_type,name,vehicle_num,email,phone,date,time,message,address) ";
-                    $msg .="VALUES('$ref_no','$service','$request','$name','$vnum','$email','$phone','$date','$time','$message','$address') ";
+                    $msg  = "INSERT into appointment(services,request_type,name,vehicle_num,email,phone,date,time,message,address) ";
+                    $msg .="VALUES('$service','$request','$name','$vnum','$email','$phone','$date','$time','$message','$address') ";
 
                      $order_query = mysqli_query($conn,$msg);
                      if(!$order_query){
