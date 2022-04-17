@@ -63,7 +63,7 @@ if (strlen($_SESSION['id']==0)) {
                 if($order_query)
                 {
                     echo "<script>alert('Request successfully Booked');</script>";
-                    echo "<script type='text/javascript'> document.location = 'submit_request.php'; </script>";
+                    echo "<script type='text/javascript'> document.location = 'check_request.php'; </script>";
                 }
             
     }

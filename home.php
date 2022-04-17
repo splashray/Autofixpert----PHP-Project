@@ -60,10 +60,10 @@ if (strlen($_SESSION['id']==0)) {
 
 
             <?php
-            // $uemail= $_SESSION['email'];
+            $uemail= $_SESSION['email'];
 
-            // $order = mysqli_query($con, "SELECT * FROM  orders WHERE order_email = '$uemail' ");
-            // $totalorders = mysqli_num_rows($order);
+            $order = mysqli_query($conn, "SELECT * FROM  appointment WHERE email = '$uemail' ");
+            $totalorders = mysqli_num_rows($order);
 
 
             ?>
@@ -75,9 +75,9 @@ if (strlen($_SESSION['id']==0)) {
                                                         <span class="text-c-pink f-w-600">Check Request</span>
                                                         <h4>
                                                             <?php 
-                                                            // echo $totalorders; 
+                                                            echo $totalorders; 
                                                              ?>
-                                                     5 Requests</h4>
+                                                      Requests</h4>
                                                         <div> <a href="check_request.php">
                                                             <span class="f-left m-t-10 text-muted">
                                                                 <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>View Your Requests

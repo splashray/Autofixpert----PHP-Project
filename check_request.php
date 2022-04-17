@@ -94,7 +94,7 @@ while($row= mysqli_fetch_array($display_query)){
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Mechanical Request</th>
-                                                                        <th>Time Spents</th>
+                                                                        <th>Status</th>
                                                                     </tr>
                                                                 </thead>
         
@@ -115,7 +115,7 @@ while($row= mysqli_fetch_array($display_query)){
                                                                             </div>  
                                                                         </td>
                                                                         <td>
-                                                                            <p class="d-inline-block m-r-20">10 : 36</p>
+                                                                           <a href="#"> <p class="d-inline-block m-r-20">Click Here</p> </a>
                                                                             <div class="progress d-inline-block">
                                                                                 <div class="progress-bar bg-c-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:80%">
                                                                                 </div>
