@@ -2,25 +2,23 @@
 
 ob_start();
  session_start(); 
- include('./includes/db.php');
+ include('../includes/db.php');
  // Code for login 
 if(isset($_POST['login']))
 {
 $password=$_POST['password'];
 $dec_password=md5($password);
 
-$useremail=$_POST['uemail'];
-$useremail = mysqli_real_escape_string($conn, $useremail);
+$username=$_POST['uemail'];
+$username = mysqli_real_escape_string($conn, $username);
 
-
-$ret= mysqli_query($conn,"SELECT id,username FROM users WHERE email='$useremail' and password='$dec_password'");
+$ret= mysqli_query($conn,"SELECT id,user FROM admin WHERE user='$username' and password='$dec_password'");
 $num=mysqli_fetch_array($ret);
 if($num>0)
 {
 
 $_SESSION['id']=$num['id'];
 $_SESSION['usernmae']=$num['username'];
-$_SESSION['email']=$num['email'];
 header("location:home.php");
 ob_end_flush();
 }
@@ -44,17 +42,17 @@ echo "<script>alert('Invalid username or password');</script>";
     <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="CodedThemes">
     <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap/css/bootstrap.min.css">
     <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
     <!-- ico font -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
+    <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 </head>
 
 <body class="fix-menu">
@@ -96,7 +94,7 @@ echo "<script>alert('Invalid username or password');</script>";
                                 </div>
                                 <hr/>
                                 <div class="input-group">
-                                    <input type="email" name="uemail" class="form-control" placeholder="Your Email Address">
+                                    <input type="text" name="uemail" class="form-control" placeholder="Your Email Address">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">
@@ -147,16 +145,16 @@ echo "<script>alert('Invalid username or password');</script>";
     </section>
 
     <!-- Required Jquery -->
-    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap/js/bootstrap.min.js"></script>
     <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
     <!-- modernizr js -->
-    <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
-    <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>
-    <script type="text/javascript" src="assets/js/common-pages.js"></script>
+    <script type="text/javascript" src="../assets/js/modernizr/modernizr.js"></script>
+    <script type="text/javascript" src="../assets/js/modernizr/css-scrollbars.js"></script>
+    <script type="text/javascript" src="../assets/js/common-pages.js"></script>
 </body>
 
 </html>

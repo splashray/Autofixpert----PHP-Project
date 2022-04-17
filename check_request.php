@@ -74,18 +74,7 @@ while($row= mysqli_fetch_array($display_query)){
                                     <div class="col-md-12 col-xl-6">
                                                 <div class="card project-task">
                                                     <div class="card-header">
-                                                        <!-- <div class="card-header-left ">
-                                                            <h5>Time spent : project &amp; task</h5>
-                                                        </div>
-                                                        <div class="card-header-right" >
-                                                            <ul class="list-unstyled card-option">
-                                                                <li><i class="icofont icofont-simple-left "></i></li>
-                                                                <li><i class="icofont icofont-maximize full-card"></i></li>
-                                                                <li><i class="icofont icofont-minus minimize-card"></i></li>
-                                                                <li><i class="icofont icofont-refresh reload-card"></i></li>
-                                                                <li><i class="icofont icofont-error close-card"></i></li>
-                                                            </ul>
-                                                        </div> -->
+                                                     
                                                     </div>
 
                                     <div class="card-block p-b-10">

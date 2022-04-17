@@ -2,7 +2,7 @@
 ob_start();
 
  session_start();
- include('./includes/db.php');
+ include('../includes/db.php');
 if (strlen($_SESSION['id']==0)) {
   header('location:logout.php');
   ob_end_flush();
@@ -12,13 +12,13 @@ if (strlen($_SESSION['id']==0)) {
    
 
 ?>
-<?php  include_once('./includes/user_header.php');  ?>
-<?php  include_once('./includes/user_nav.php');  ?>
+<?php  include_once('../includes/user_header.php');  ?>
+<?php  include_once('../includes/user_nav.php');  ?>
  
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-<?php  include_once('./includes/user_sidebar.php');  ?>
+<?php  include_once('../includes/user_sidebar.php');  ?>
 
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
@@ -135,4 +135,4 @@ while($row= mysqli_fetch_array($display_query)){
                                                          ?>
            
 
-<?php } include_once('./includes/user_footer.php') ?>
+<?php } include_once('../includes/user_footer.php') ?>
