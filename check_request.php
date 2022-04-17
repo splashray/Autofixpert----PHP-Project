@@ -107,7 +107,7 @@ while($row= mysqli_fetch_array($display_query)){
 
                                                                                 <p class="d-inline-block m-l-20">
                                 <?php  
-                                if(isset($row['request_type'])) {   echo $row['request_type']; }     
+                                if(isset($row['request_ref'])) {   echo $row['request_ref']; }     
                                  ?>        
                                                                        
 
