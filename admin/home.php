@@ -13,13 +13,13 @@ if (strlen($_SESSION['id']==0)) {
 
 ?>
 
-<?php  include_once('../includes/user_header.php'); ?>
-<?php  include_once('../includes/user_nav.php');  ?>
+<?php  include_once('./include/admin_header.php'); ?>
+<?php  include_once('./include/admin_nav.php');  ?>
  
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-<?php  include_once('../includes/user_sidebar.php');  ?>
+<?php  include_once('./include/admin_sidebar.php');  ?>
 
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
@@ -42,7 +42,7 @@ if (strlen($_SESSION['id']==0)) {
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
                                                         <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
-                                                        <span class="text-c-blue f-w-600">Submit Service</span>
+                                                        <span class="text-c-blue f-w-600">Services</span>
                                                         <h4>
                                                             <?php
                                                              echo $totalservices; 
@@ -59,45 +59,53 @@ if (strlen($_SESSION['id']==0)) {
                                             <!-- card1 end -->
 
 
-            <?php
-            // $uemail= $_SESSION['email'];
+<?php
 
-            // $order = mysqli_query($con, "SELECT * FROM  orders WHERE order_email = '$uemail' ");
-            // $totalorders = mysqli_num_rows($order);
+$query=mysqli_query($conn,"SELECT * FROM mechanics");
+$totalservices=mysqli_num_rows($query);
 
-
-            ?>
+?>
                                             <!-- card1 start -->
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
                                                         <i class="icofont icofont-ui-home bg-c-pink card1-icon"></i>
-                                                        <span class="text-c-pink f-w-600">Check Request</span>
+                                                        <span class="text-c-pink f-w-600">Mechanics</span>
                                                         <h4>
                                                             <?php 
                                                             // echo $totalorders; 
                                                              ?>
-                                                     5 Requests</h4>
+                                                     5 Mechanics Available</h4>
                                                         <div> <a href="check_request.php">
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>View Your Requests
+                                                                <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>View Your Mechanics
                                                             </span> </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- card1 end -->
+<?php
+
+$query=mysqli_query($conn,"SELECT * FROM appointment");
+$totalreq=mysqli_num_rows($query);
+
+?>
                                             <!-- card1 start -->
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
                                                         <i class="icofont icofont-warning-alt bg-c-green card1-icon"></i>
-                                                        <span class="text-c-green f-w-600">Pricing</span>
-                                                        <h4>Coming Soon</h4>
-                                                        <div>
+                                                        <span class="text-c-green f-w-600">Request</span>
+                                                        <h4>
+                                                            <?php
+                                                             echo $totalreq; 
+                                                             ?>
+                                                             Available</h4>
+                                                        <div><a href="check_request.php">
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Pay and checkOut 
-                                                            </span>
+                                                                <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>View Your Request
+                                                            </span>  </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -125,4 +133,4 @@ if (strlen($_SESSION['id']==0)) {
 <!-- dashboard box ends -->
 
 <?php }
-include_once('../includes/user_footer.php') ?>
+include_once('./include/admin_footer.php') ?>

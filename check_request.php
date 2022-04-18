@@ -109,7 +109,7 @@ if (strlen($_SESSION['id'] == 0)) {
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                            <a href="view=<?php echo $ref; ?>" class="viewModal">
+                                                            <a href="check_request.php?id=<?php echo $ref; ?>" class="viewModal">
                                                                     <p class="d-inline-block m-r-20">Click Here</p>
                                                                 </a>
                                                                 <div class=" d-inline-block">
@@ -126,7 +126,7 @@ if (strlen($_SESSION['id'] == 0)) {
                                     </div>
                                 </div>
                                 <!-- end of task --> <?php
-                                                    }
+                            }
                                                         ?>
 
 
@@ -140,11 +140,16 @@ if (strlen($_SESSION['id'] == 0)) {
                     <h3>Request Details</h3>     
                 <?php
 
-                //Check the value for $refvalue in the click link 
-                // the value is actually my own refvalue from the form i submitted
+                // if(isset($_GET['view'])){
+                // $ref = $_GET['id'];
 
-                $refvalue = 51599105;
-                $query = "SELECT * FROM  appointment WHERE request_ref = '$refvalue' ";
+                //Check the value for $ref in the click link 
+                // the value is actually my own refvalue from the form i submitted
+                // so help me find a way to generate a value from 112 to show as the value of this my $ref below so that it will be the key value for checking and fetching from the database.
+
+
+                $ref = 51599105;
+                $query = "SELECT * FROM  appointment WHERE request_ref = '$ref' ";
                 $display_query = mysqli_query($conn, $query);
                 while ($row = mysqli_fetch_array($display_query)) 
                 {

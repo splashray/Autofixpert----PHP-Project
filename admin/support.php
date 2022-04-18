@@ -30,13 +30,13 @@ if (strlen($_SESSION['id']==0)) {
      
 
 ?>
-<?php  include_once('./includes/user_header.php');  ?>
-<?php  include_once('./includes/user_nav.php');  ?>
+<?php  include_once('./include/admin_header.php');  ?>
+<?php  include_once('./include/admin_nav.php');  ?>
  
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-<?php  include_once('./includes/user_sidebar.php');  ?>
+<?php  include_once('./include/admin_sidebar.php');  ?>
 
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
@@ -199,4 +199,4 @@ if (strlen($_SESSION['id']==0)) {
                                     <!-- end of conatiner -->
            
 
-<?php }include_once('./includes/user_footer.php') ?>
+<?php }include_once('./include/admin_footer.php') ?>
