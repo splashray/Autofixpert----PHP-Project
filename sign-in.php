@@ -129,7 +129,7 @@ echo "<script>alert('Invalid username or password');</script>";
                                         <p class="text-inverse text-left"><b>Your AutoFixpert Company</b></p>
                                     </div>
                                     <div class="col-md-2">
-                                        <img src="assets/images/logo.png" alt="small-logo.png" class="responsive">
+                                        <img style="width: 50px;" src="./images/THE AUTO FIXPERT.png" alt="small-logo.png" class="responsive">
                                     </div>
                                 </div>
 
