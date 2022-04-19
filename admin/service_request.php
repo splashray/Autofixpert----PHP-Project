@@ -93,7 +93,7 @@ return true;
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                                     <div class="d-inline">
-                                                    <h4>Services List</h4>
+                                                    <h4> Service Requests</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +105,7 @@ return true;
                                                                 <i class="icofont icofont-home"></i>
                                                             </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="settings.php">CRUD Services </a>
+                                                        <li class="breadcrumb-item"><a href="service_request.php">CRUD Request </a>
                                                         </li>
                                                        
                                                     </ul>
@@ -126,15 +126,15 @@ return true;
                                     <!-- Contextual classes table starts -->
                                     <div class="card">
                                         <div class="card-header ">
-                                            <h5>Services Offered Are Listed Below</h5>
-                                            <span> click the Actions to Edit Services  </span>
+                                            <h5>Service Requests Available Are Listed Below</h5>
+                                            <span> click the Actions to Edit Request  </span>
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
 
       	<div class="col-10">
-      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Services</a>
+      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Request</a>
       	</div>
-                                <div class="col-md-12 col-xl-6">
+                                <div class="col-xl-12 col-xl-12">
                                     <div class="card project-task">
                                         <div class="card-header">
                                      
@@ -145,39 +145,73 @@ return true;
                                                     <thead>
                                                         <tr>
                                                             <th>Sno.</th>
+                                                            <th>Request-Ref</th>
                                                             <th>Services</th>
+                                                            <th>Request Type</th>
+                                                            <th>Name</th>
+                                                            <th>Vehicle-Num</th>
+                                                            <th>Email</th>
+                                                            <th>Phone</th>	
+                                                            <th>Date</th>	
+                                                            <th>Time</th>	
+                                                            <th>Message	</th>
+                                                            <th>Address	</th>
+                                                            <th>Status</th>
                                                             <th>Actions</th>
+
                                                         </tr>
                                                     </thead>
 
                                                     <tfoot>
                                                         <tr>
                                                             <th>Sno.</th>
+                                                            <th>Request-Ref</th>
                                                             <th>Services</th>
+                                                            <th>Request Type</th>
+                                                            <th>Name</th>
+                                                            <th>Vehicle-Num</th>
+                                                            <th>Email</th>
+                                                            <th>Phone</th>	
+                                                            <th>Date</th>	
+                                                            <th>Time</th>	
+                                                            <th>Message	</th>
+                                                            <th>Address	</th>
+                                                            <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </tfoot>
 
                                                     <tbody>
                                             <?php 
-                                                $query = "SELECT * FROM services";
+                                                $query = "SELECT * FROM appointment";
                                                 $select_ser = mysqli_query($conn,$query);
                                                 $cnt=1;
                                                 while($row = mysqli_fetch_assoc($select_ser)){ 
-                                                    $services_id = $row['id'];
-                                                    $services = $row['services'];
-
+                                                    $id = $row['id'];
                                             ?>
                                                         <tr class="table-hover">
                                                         <td><?php echo $cnt; ?></td>
-                                                            <td> <?php echo $services; ?> </td>
+                                                            <td> <?php echo $row["request_ref"]; ?> </td>	
+                                                            <td> <?php echo $row["services"]; ?> </td>	
+                                                            <td> <?php echo $row["request_type"]; ?> </td>	
+                                                            <td> <?php echo $row["name"]; ?> </td>	
+                                                            <td> <?php echo $row["vehicle_num"]; ?> </td>	
+                                                            <td> <?php echo $row["email"]; ?> </td>	
+                                                            <td> <?php echo $row["phone"]; ?> </td>	
+                                                            <td> <?php echo $row["date"]; ?> </td>	
+                                                            <td> <?php echo $row["time"]; ?> </td>	
+                                                            <td> <?php echo $row["message"]; ?> </td>
+                                                            <td> <?php echo $row["address"]; ?> </td>	
+                                                            <td> <?php echo $row["status"]; ?> </td>
+
                                                             <td>
                                                             <button class="btn btn-danger" >
-                                                                <a href="services.php?delete=<?php echo $services_id   ?>"  onClick="return confirm('Do you really want to delete Service?');" > Delete </a>
+                                                                <a href="service_request.php?delete=<?php echo $id   ?>"  onClick="return confirm('Do you really want to delete Request?');" > Delete </a>
                                                             </button>
 
                                                             <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Edit </button>
                                                             </td>
+
                                                             </tr>
 
                                                             <?php $cnt=$cnt+1; }?>
@@ -195,18 +229,45 @@ return true;
 
 
 if(isset($_GET['delete'])){
-    $the_services_id = $_GET['delete'];
+    $id = $_GET['delete'];
 
-    $query = "DELETE FROM services WHERE id = {$the_services_id}";
+    $query = "DELETE FROM appointment WHERE id ='$id'";
     $delete_query = mysqli_query($conn, $query);
-    echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
 }
 
 if(isset($_POST['add'])){
-    $the_service = $_POST['services'];
 
-    $msg  = "INSERT into services(services) ";
-    $msg .="VALUES('$the_service') ";
+                $request_ref= $_POST['request_ref'];	
+                $services	= $_POST['services'];
+                $request_type= $_POST['request_type'];
+                $name	= $_POST['name'];
+                $vehicle_num= $_POST['vehicle_num'];
+                $email	= $_POST['email'];
+                $phone	= $_POST['phone'];
+                $date	= $_POST['date'];
+                $time	= $_POST['time'];
+                $message= $_POST['message'];	
+                $address= $_POST['address'];	
+
+
+                            $data = 0;
+                                                
+                            $ref_no = mt_rand(1,99999999);
+                            $i= 1;
+                        
+                                while($i== 1){
+                                    $check = mysqli_query($conn,"SELECT * FROM appointment where request_ref ='$ref_no' ")->num_rows;
+                                    if($check > 0){
+                                    $ref_no = mt_rand(1,99999999);
+                                    }else{
+                                        $i = 0;
+                                    }
+                                }
+                                $data .= " , request_ref = '$ref_no' ";
+
+            $msg  = "INSERT into appointment(request_ref,services,request_type,name,vehicle_num,email,phone,date,time,message,address) ";
+            $msg .="VALUES('$ref_no','$services','$request_type','$name','$vehicle_num','$email','$phone','$date','$time','$message','$address') ";
 
             $order_query = mysqli_query($conn,$msg);
             if(!$order_query){
@@ -215,8 +276,8 @@ if(isset($_POST['add'])){
          
             if($order_query)
             {
-                echo "<script>alert('Service successfully Added');</script>";
-                echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
+                echo "<script>alert('Request successfully Added');</script>";
+                echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
             }
  }
 
@@ -231,7 +292,7 @@ if(isset($_POST['add'])){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Service</h5>
+        <h5 class="modal-title" id="exampleModalLabel">New Request</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -243,12 +304,77 @@ if(isset($_POST['add'])){
         		<div class="col-12">
         			<div class="form-group">
 		        		<label>Services </label>
-                        <input type="text" name="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
+                        <input type="text" name="services" class="form-control" placeholder="Enter Service" required>
 		        	</div>
         		</div>
 
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label> Request Type </label>
+                        <input type="text" name="request_type" class="form-control" placeholder="Enter Request Type" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Name </label>
+                        <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Vehicle Num </label>
+                        <input type="text" name="vehicle_num" class="form-control" placeholder="Enter Vehicle Num	" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Email </label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label> Phone </label>
+                        <input type="text" name="phone" class="form-control" placeholder="Enter Phone	" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Date of Appointment </label>
+                        <input type="date" data-date-inline-picker="true" name="date" class="form-control" placeholder="Enter Date"  required />		        	
+                    </div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Time of Appointment </label>
+                        <input type="time" data-time-inline-picker="true" name="time" class="form-control" placeholder="Enter Time"  required />		        	
+                    </div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Message </label>
+                        <textarea  name="message" rows="5" class="form-control"  required > </textarea>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Address </label>
+                        <textarea  name="address" rows="5" class="form-control"  required > </textarea>
+		        	</div>
+        		</div>
+
+
+
         		<div class="col-12">
-        			<button type="submit" class="btn btn-primary" name="add">Add Service</button>
+        			<button type="submit" class="btn btn-primary" name="add">Add Request</button>
         		</div>
         	</div>
         	

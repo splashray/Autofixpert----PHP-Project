@@ -48,7 +48,7 @@ if (strlen($_SESSION['id']==0)) {
                                                              echo $totalservices; 
                                                              ?>
                                                              Available</h4>
-                                                        <div> <a href="submit_request.php">
+                                                        <div> <a href="services.php">
                                                             <span class="f-left m-t-10 text-muted">
                                                                 <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i>View Available Services
                                                             </span> </a>
@@ -73,10 +73,10 @@ $totalservices=mysqli_num_rows($query);
                                                         <span class="text-c-pink f-w-600">Mechanics</span>
                                                         <h4>
                                                             <?php 
-                                                            // echo $totalorders; 
+                                                            echo $totalservices; 
                                                              ?>
-                                                     5 Mechanics Available</h4>
-                                                        <div> <a href="check_request.php">
+                                                        Available</h4>
+                                                        <div> <a href="mechanics.php">
                                                             <span class="f-left m-t-10 text-muted">
                                                                 <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>View Your Mechanics
                                                             </span> </a>
@@ -102,7 +102,7 @@ $totalreq=mysqli_num_rows($query);
                                                              echo $totalreq; 
                                                              ?>
                                                              Available</h4>
-                                                        <div><a href="check_request.php">
+                                                        <div><a href="service_request.php">
                                                             <span class="f-left m-t-10 text-muted">
                                                                 <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>View Your Request
                                                             </span>  </a>
@@ -118,10 +118,10 @@ $totalreq=mysqli_num_rows($query);
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
                                                         <i class="icofont icofont-ui-home bg-c-pink card1-icon"></i>
-                                                        <span class="text-c-yellow f-w-600"> Settings</span>
+                                                        <span class="text-c-yellow f-w-600"> Finished Requests</span>
                                                         <h4>
-                                                        Update Info  <h4>
-                                                        <div> <a href="settings.php">
+                                                        0  <h4>
+                                                        <div> <a href="finished.php">
                                                             <span class="f-left m-t-10 text-muted">
                                                              <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Click Here
                                                             </span>   </a> 

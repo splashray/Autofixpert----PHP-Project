@@ -67,8 +67,8 @@ if (strlen($_SESSION['id'] == 0)) {
                             $query = "SELECT * FROM  appointment WHERE email = '$uemail' ";
                             $display_query = mysqli_query($conn, $query);
 
-                            while ($row = mysqli_fetch_array($display_query)) {
-                             $ref = $row['request_ref'];
+                            while ($customer = mysqli_fetch_object($display_query)) {
+                            //  $ref = $customer['request_ref'];
 
 
                             ?>
@@ -99,9 +99,7 @@ if (strlen($_SESSION['id'] == 0)) {
 
                                                                     <p class="d-inline-block m-l-20">
                                                                         <?php
-                                                                        if (isset($ref)) {
-                                                                            echo $ref;     
-                                                                        }
+                                                                            echo $customer->request_ref;   
                                                                         ?>
 
 
@@ -109,12 +107,11 @@ if (strlen($_SESSION['id'] == 0)) {
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                            <a href="check_request.php?id=<?php echo $ref; ?>" class="viewModal">
+                                                            <!-- <a href="check_request.php?id=" class="viewModal">
                                                                     <p class="d-inline-block m-r-20">Click Here</p>
-                                                                </a>
-                                                                <div class=" d-inline-block">
-                                                                  
-                                                                </div>
+                                                            </a> -->
+
+                                                                <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal" id="<?php echo $customer->request_ref; ?>" onclick="showDetails(this);">Details </button>
                                                             </td>
                                                         </tr>
 
@@ -125,65 +122,84 @@ if (strlen($_SESSION['id'] == 0)) {
                                         </div>
                                     </div>
                                 </div>
-                                <!-- end of task --> <?php
-                            }
-                                                        ?>
+                                <!-- end of task --> <?php  }  ?>
 
 
 
 
-            <!-- THE MODAL WINDOW -->
-            <div id="checkModal" class="checkModal">
-                <div id="overlay" class="overlay">
-                </div>
-                <div class="modalMssg">
-                    <h3>Request Details</h3>     
-                <?php
+<!-- Modal -->
+<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
+   aria-labelledby = "myModalLabel" aria-hidden = "true">
+   
+   <div class = "modal-dialog">
+      <div class = "modal-content">
+         
+         <div class = "modal-header">
+            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                  &times;
+            </button>
+            
+            <h4 class = "modal-title" id = "myModalLabel">
+               Request Information
+            </h4>
+         </div>
+         
+         <div class = "modal-body">
+                        <p>Mechanical Service: <span id="ms"> </span></p>
+                        <p>Request Type: <span id="rt"><?php  ?></span></p>
+                        <p>Vehicle Plate No: <span id="vhn"><?php  ?></span></p>
+                        <p>Date: <span id="dat"><?php  ?></span></p>
+                        <p>Time: <span id="ti"><?php  ?></span></p>
+                        <p>Email: <span id="em"><?php ?></span></p>
+                        <p>Phone: <span id="phone"></span></p>
+                        <p>Address: <span id="add"><?php  ?> </span></p>
+                        <p>Additional Message: <span id="msg"><?php  ?> </span></p>
+                        <p>Status: <span id="sta"><?php  ?> </span></p> 
 
-                // if(isset($_GET['view'])){
-                // $ref = $_GET['id'];
-
-                //Check the value for $ref in the click link 
-                // the value is actually my own refvalue from the form i submitted
-                // so help me find a way to generate a value from 112 to show as the value of this my $ref below so that it will be the key value for checking and fetching from the database.
-
-
-                $ref = 51599105;
-                $query = "SELECT * FROM  appointment WHERE request_ref = '$ref' ";
-                $display_query = mysqli_query($conn, $query);
-                while ($row = mysqli_fetch_array($display_query)) 
-                {
-                ?>          
-                    <div class="mssgHolder">
-                        <p>Mechanical Service: <span>
-                            <?php if($row['services'] == 1): ?>
-                                <span class="badge badge-warning"> Engine Repair </span>
-                            <?php elseif($row['services'] == 2): ?>
-                                <span class="badge badge-info"> Battery Replace</span>
-                            <?php elseif($row['services'] == 3): ?>
-                                <span class="badge badge-primary"> Change Tire</span>
-                            <?php elseif($row['services'] == 4): ?>
-                                <span class="badge badge-success">Tow Truck</span>
-                            <?php elseif($row['services'] == 5): ?>
-                                <span class="badge badge-danger">Driving-School</span>
-                            <?php endif; ?>
-                        </span></p>
-                        <p>Request Type: <span><?php echo $row['request_type']; ?></span></p>
-                        <p>Vehicle Plate No: <span><?php echo $row['vehicle_num']; ?></span></p>
-                        <p>Date: <span><?php echo $row['date']; ?></span></p>
-                        <p>Time: <span><?php echo $row['time']; ?></span></p>
-                        <p>Email: <span><?php echo $row['email']; ?></span></p>
-                        <p>Phone: <span><?php echo $row['phone']; ?></span></p>
-                        <p>Address: <span><?php echo $row['address']; ?> </span></p>
-                    </div>
-                </div> <?php } ?>
-               
-            </div>
-            <!-- END OF MODAL WINDOW -->
-
-
-
+         </div>
+         
+         
+         
+      </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+  
+</div><!-- /.modal -->
 
 
                         <?php }
                     include_once('./includes/user_footer.php') ?>
+
+
+
+
+<script> 
+
+
+function showDetails(button){
+    var request_ref = button.id;
+    //ajax call
+
+    $.ajax({
+			url:"request.php",
+			method:"GET",
+			data:{"request_ref": request_ref},
+			success:function(response) {
+                var customer = JSON.parse(response);
+                $("#ms").text(customer.services);
+                $("#rt").text(customer.request_type);
+                $("#vhn").text(customer.vehicle_num);
+                $("#dat").text(customer.date);
+                $("#ti").text(customer.time);
+                $("#em").text(customer.email);
+                $("#phone").text(customer.phone);
+                $("#add").text(customer.address);
+                $("#msg").text(customer.message);
+                $("#sta").text(customer.status);
+
+
+                    $("#myModalLabel").text(customer.request_ref);
+            }
+
+        });
+}
+</script>

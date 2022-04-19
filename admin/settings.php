@@ -8,28 +8,6 @@ if (strlen($_SESSION['id']==0)) {
 
   } else{
       
-//Code for Updation 
-
-if(isset($_POST['update']))
-{
-    $username=$_POST['username'];
-    $pcontact=$_POST['contact'];
-
-    $userid=$_SESSION['id'];
-
-    $msg=mysqli_query($conn,"UPDATE users SET username='$username',phone='$pcontact' where id='$userid'") ;
-    if(!$msg){
-        die("QUERY FAILED". mysqli_error($conn));
-    }
-       else if($msg)
-        {
-            echo "<script>alert('Profile updated successfully');</script>";
-            echo "<script type='text/javascript'> document.location = 'settings.php'; </script>";
-        }
-}
-
-
-
           // Query to update password  start here
             
           if(isset($_POST['change-password'])) {
@@ -37,12 +15,12 @@ if(isset($_POST['update']))
             $oldpassword=md5($_POST['currentpassword']); 
             $newpassword=md5($_POST['newpassword']);
 
-            $sql=mysqli_query($conn,"SELECT password FROM users where password='$oldpassword'");
+            $sql=mysqli_query($conn,"SELECT password FROM admin where password='$oldpassword'");
             $num=mysqli_fetch_array($sql);
                 if($num>0)
                 {
                 $userid=$_SESSION['id'];
-                $ret=mysqli_query($conn,"update users set password='$newpassword' where id='$userid'");
+                $ret=mysqli_query($conn,"update admin set password='$newpassword' where id='$userid'");
                 echo "<script>alert('Password Changed Successfully !!');</script>";
                 echo "<script type='text/javascript'> document.location = 'settings.php'; </script>";
                 }
@@ -128,63 +106,6 @@ return true;
                                         <div class="card">
 
 <div class="card-block">
-
-<?php 
-
-$id=$_SESSION['id'];
-$query=mysqli_query($conn,"select * from users where id='$id'");
-while($result=mysqli_fetch_array($query)):
-    ?>
-
-                <form method="post">
-
-                    <br><br>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Username</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control"name="username" id="fname" value ="<?php echo $result['username'];?>" required />
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label"><i class="zmdi zmdi-email"></i>Email</label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control"name="email" id="email" value ="<?php echo $result['email']; ?>" readonly />
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label"><i class="zmdi zmdi-email"></i>Phone Number</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control"name="contact" id="contact"  value = "<?php echo $result['phone']; ?>" pattern="[0-9]{11}" title="11 numeric characters only"  maxlength="11" required/>
-                            </div>
-                        </div>
-   
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label"><i class="zmdi zmdi-email"></i>Registered Date</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control"name="regdate" id="regdate" value ="<?php echo $result['register_date']; ?>" readonly />
-                            </div>
-                        </div>
-        
-
-                            <div class="form-group form-button">
-                                <button type="submit" class="btn btn-primary btn-block" name="update">Update Details</button>
-                            </div>
-                        
-                                       
-                    </form>  <br><br><br>
-         
-<?php
-endwhile;
-  ?>
-
-
-
-
 <!-- password section -->
 
 

@@ -17,9 +17,16 @@
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="request.php">
+                                    <a href="service_request.php">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Service Requests</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="finished.php">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Finished Requests</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -53,13 +60,13 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <!-- <li class="">
+                                <li class="">
                                     <a href="support.php">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Support</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
-                                </li> -->
+                                </li>
                                 <li class="">
                                     <a href="logout.php">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>

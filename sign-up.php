@@ -98,7 +98,7 @@ return true;
                     <div class="signup-card card-block auth-body mr-auto ml-auto">
                         <form class="md-float-material" name="signup" onsubmit="return checkpass();" method="post">
                             <div class="text-center">
-                                <img src="assets/images/auth/logo-dark.png" alt="logo.png">
+                                <img src="assets/images/logo2.png" alt="logo.png">
                             </div>
                             <div class="auth-box">
                                 <div class="row m-b-20">
@@ -161,7 +161,7 @@ return true;
                                         <p class="text-inverse text-left"><b>Your AutoFixpert Company</b></p>
                                     </div>
                                     <div class="col-md-2">
-                                        <!-- <img src="assets/images/auth/Logo-small-bottom.png" alt="small-logo.png"> -->
+                                    <img src="assets/images/logo.png" alt="small-logo.png" class="responsive">
                                     </div>
                                 </div>
                             </div>

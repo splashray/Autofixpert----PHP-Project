@@ -93,7 +93,7 @@ return true;
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                                     <div class="d-inline">
-                                                    <h4>Services List</h4>
+                                                    <h4>Finished Service Requests</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +105,7 @@ return true;
                                                                 <i class="icofont icofont-home"></i>
                                                             </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="settings.php">CRUD Services </a>
+                                                        <li class="breadcrumb-item"><a href="service_request.php">Go to All Request </a>
                                                         </li>
                                                        
                                                     </ul>
@@ -126,15 +126,15 @@ return true;
                                     <!-- Contextual classes table starts -->
                                     <div class="card">
                                         <div class="card-header ">
-                                            <h5>Services Offered Are Listed Below</h5>
-                                            <span> click the Actions to Edit Services  </span>
+                                            <h5>Finished Service Requests Available Are Listed Below</h5>
+                                            <span> click the Actions to Edit Finished Request  </span>
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
-
+<!-- 
       	<div class="col-10">
-      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Services</a>
-      	</div>
-                                <div class="col-md-12 col-xl-6">
+      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Request</a>
+      	</div> -->
+                                <div class="col-xl-12 col-xl-12">
                                     <div class="card project-task">
                                         <div class="card-header">
                                      
@@ -145,39 +145,73 @@ return true;
                                                     <thead>
                                                         <tr>
                                                             <th>Sno.</th>
+                                                            <th>Request-Ref</th>
                                                             <th>Services</th>
+                                                            <th>Request Type</th>
+                                                            <th>Name</th>
+                                                            <th>Vehicle-Num</th>
+                                                            <th>Email</th>
+                                                            <th>Phone</th>	
+                                                            <th>Date</th>	
+                                                            <th>Time</th>	
+                                                            <th>Message	</th>
+                                                            <th>Address	</th>
+                                                            <th>Status</th>
                                                             <th>Actions</th>
+
                                                         </tr>
                                                     </thead>
 
                                                     <tfoot>
                                                         <tr>
                                                             <th>Sno.</th>
+                                                            <th>Request-Ref</th>
                                                             <th>Services</th>
+                                                            <th>Request Type</th>
+                                                            <th>Name</th>
+                                                            <th>Vehicle-Num</th>
+                                                            <th>Email</th>
+                                                            <th>Phone</th>	
+                                                            <th>Date</th>	
+                                                            <th>Time</th>	
+                                                            <th>Message	</th>
+                                                            <th>Address	</th>
+                                                            <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </tfoot>
 
                                                     <tbody>
                                             <?php 
-                                                $query = "SELECT * FROM services";
+                                                $query = "SELECT * FROM appointment";
                                                 $select_ser = mysqli_query($conn,$query);
                                                 $cnt=1;
                                                 while($row = mysqli_fetch_assoc($select_ser)){ 
-                                                    $services_id = $row['id'];
-                                                    $services = $row['services'];
-
+                                                    $id = $row['id'];
                                             ?>
                                                         <tr class="table-hover">
                                                         <td><?php echo $cnt; ?></td>
-                                                            <td> <?php echo $services; ?> </td>
+                                                            <td> <?php echo $row["request_ref"]; ?> </td>	
+                                                            <td> <?php echo $row["services"]; ?> </td>	
+                                                            <td> <?php echo $row["request_type"]; ?> </td>	
+                                                            <td> <?php echo $row["name"]; ?> </td>	
+                                                            <td> <?php echo $row["vehicle_num"]; ?> </td>	
+                                                            <td> <?php echo $row["email"]; ?> </td>	
+                                                            <td> <?php echo $row["phone"]; ?> </td>	
+                                                            <td> <?php echo $row["date"]; ?> </td>	
+                                                            <td> <?php echo $row["time"]; ?> </td>	
+                                                            <td> <?php echo $row["message"]; ?> </td>
+                                                            <td> <?php echo $row["address"]; ?> </td>	
+                                                            <td> <?php echo $row["status"]; ?> </td>
+
                                                             <td>
                                                             <button class="btn btn-danger" >
-                                                                <a href="services.php?delete=<?php echo $services_id   ?>"  onClick="return confirm('Do you really want to delete Service?');" > Delete </a>
+                                                                <a href="service_request.php?delete=<?php echo $id   ?>"  onClick="return confirm('Do you really want to delete Request?');" > Delete </a>
                                                             </button>
 
                                                             <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Edit </button>
                                                             </td>
+
                                                             </tr>
 
                                                             <?php $cnt=$cnt+1; }?>
@@ -195,141 +229,20 @@ return true;
 
 
 if(isset($_GET['delete'])){
-    $the_services_id = $_GET['delete'];
+    $id = $_GET['delete'];
 
-    $query = "DELETE FROM services WHERE id = {$the_services_id}";
+    $query = "DELETE FROM appointment WHERE id ='$id'";
     $delete_query = mysqli_query($conn, $query);
-    echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
 }
 
-if(isset($_POST['add'])){
-    $the_service = $_POST['services'];
-
-    $msg  = "INSERT into services(services) ";
-    $msg .="VALUES('$the_service') ";
-
-            $order_query = mysqli_query($conn,$msg);
-            if(!$order_query){
-                die("Query Failed". mysqli_error($conn));
-            }
-         
-            if($order_query)
-            {
-                echo "<script>alert('Service successfully Added');</script>";
-                echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
-            }
- }
 
 ?>
 
                                 
       
-<!-- Add Product Modal start -->
 
 
-<div class="modal fade" id="add_product_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Service</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="add-product-form"  method="post">
-        	<div class="row">
-
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Services </label>
-                        <input type="text" name="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
-		        	</div>
-        		</div>
-
-        		<div class="col-12">
-        			<button type="submit" class="btn btn-primary" name="add">Add Service</button>
-        		</div>
-        	</div>
-        	
-        </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Add Product Modal end -->
-
-
-
-
-
-
-<?php
-
-if(isset($_GET['edit'])){
-    $services_id = $_GET['edit'];
-
-    // $query = "UPDATE FROM services WHERE id = {$services_id}";
-    // $upd_query = mysqli_query($conn, $query);
-    // echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
-
-$query = "SELECT * FROM services WHERE id = $services_id ";
-$select_services_id = mysqli_query($con,$query);
-while($row = mysqli_fetch_assoc($select_services_id)){
-	$services = $row['services'];
-
-?>
-
-
-<!-- edit Product Modal start -->
-
-<!-- Modal -->
-<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
-   aria-labelledby = "myModalLabel" aria-hidden = "true">
-   
-   <div class = "modal-dialog">
-      <div class = "modal-content">
-         
-         <div class = "modal-header">
-            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
-                  &times;
-            </button>
-            
-            <h4 class = "modal-title" id = "myModalLabel">
-               Service Information
-            </h4>
-         </div>
-         
-         <div class = "modal-body">
-                    <form id="add-product-form"  method="post">
-                        <div class="row">
-
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Services </label>
-                                    <input type="text" name="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary" name="edit">Edit Service</button>
-                            </div>
-                        </div>
-                        
-                    </form>     
-
-
-         </div>
-         
-         
-         
-      </div><!-- /.modal-content -->
-   </div><!-- /.modal-dialog -->
-  
-</div><!-- /.modal -->
-<!-- edit Product Modal end -->
-<?php  }}?>
 
 
 

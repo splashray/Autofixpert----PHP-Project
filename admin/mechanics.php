@@ -93,7 +93,7 @@ return true;
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                                     <div class="d-inline">
-                                                    <h4>Services List</h4>
+                                                    <h4>Mechanics List</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +105,7 @@ return true;
                                                                 <i class="icofont icofont-home"></i>
                                                             </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="settings.php">CRUD Services </a>
+                                                        <li class="breadcrumb-item"><a href="mechanics.php">CRUD Mechanics </a>
                                                         </li>
                                                        
                                                     </ul>
@@ -126,15 +126,15 @@ return true;
                                     <!-- Contextual classes table starts -->
                                     <div class="card">
                                         <div class="card-header ">
-                                            <h5>Services Offered Are Listed Below</h5>
-                                            <span> click the Actions to Edit Services  </span>
+                                            <h5>Mechanics Available Are Listed Below</h5>
+                                            <span> click the Actions to Edit Mechanics  </span>
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
 
       	<div class="col-10">
-      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Services</a>
+      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Mechanics</a>
       	</div>
-                                <div class="col-md-12 col-xl-6">
+                                <div class="col-xl-12 col-xl-12">
                                     <div class="card project-task">
                                         <div class="card-header">
                                      
@@ -145,7 +145,11 @@ return true;
                                                     <thead>
                                                         <tr>
                                                             <th>Sno.</th>
-                                                            <th>Services</th>
+                                                            <th>Mechanic Name</th>
+                                                            <th>Mechanic Contact</th>
+                                                            <th>Mechanic Email</th>
+                                                            <th>Date Created</th>
+                                                            <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
@@ -153,31 +157,39 @@ return true;
                                                     <tfoot>
                                                         <tr>
                                                             <th>Sno.</th>
-                                                            <th>Services</th>
+                                                            <th>Mechanic Name</th>
+                                                            <th>Mechanic Contact</th>
+                                                            <th>Mechanic Email</th>
+                                                            <th>Date Created</th>
+                                                            <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </tfoot>
 
                                                     <tbody>
                                             <?php 
-                                                $query = "SELECT * FROM services";
+                                                $query = "SELECT * FROM Mechanics";
                                                 $select_ser = mysqli_query($conn,$query);
                                                 $cnt=1;
                                                 while($row = mysqli_fetch_assoc($select_ser)){ 
-                                                    $services_id = $row['id'];
-                                                    $services = $row['services'];
-
+                                                    $mech_id = $row['mech_id'];
                                             ?>
                                                         <tr class="table-hover">
                                                         <td><?php echo $cnt; ?></td>
-                                                            <td> <?php echo $services; ?> </td>
+                                                            <td> <?php echo $row["mechanic_name"]; ?> </td>
+                                                            <td> <?php echo $row["mechanic_contact"]; ?> </td>
+                                                            <td> <?php echo $row["mechanic_email"]; ?> </td>
+                                                            <td> <?php echo $row["date_created"]; ?> </td>
+                                                            <td> <?php echo $row["status"]; ?> </td>
+
                                                             <td>
                                                             <button class="btn btn-danger" >
-                                                                <a href="services.php?delete=<?php echo $services_id   ?>"  onClick="return confirm('Do you really want to delete Service?');" > Delete </a>
+                                                                <a href="mechanics.php?delete=<?php echo $mech_id   ?>"  onClick="return confirm('Do you really want to delete Mechanic?');" > Delete </a>
                                                             </button>
 
                                                             <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Edit </button>
                                                             </td>
+
                                                             </tr>
 
                                                             <?php $cnt=$cnt+1; }?>
@@ -195,18 +207,22 @@ return true;
 
 
 if(isset($_GET['delete'])){
-    $the_services_id = $_GET['delete'];
+    $mech_id = $_GET['delete'];
 
-    $query = "DELETE FROM services WHERE id = {$the_services_id}";
+    $query = "DELETE FROM mechanics WHERE mech_id ='$mech_id'";
     $delete_query = mysqli_query($conn, $query);
-    echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'mechanics.php'; </script>";
 }
 
 if(isset($_POST['add'])){
-    $the_service = $_POST['services'];
+    $mechName = $_POST['mname'];
+    $mechCon = $_POST['mcon'];
+    $mechEmail = $_POST['mem'];
+    $date = $_POST['date'];
+    $status = $_POST['status'];
 
-    $msg  = "INSERT into services(services) ";
-    $msg .="VALUES('$the_service') ";
+    $msg  = "INSERT into mechanics(mechanic_name,mechanic_contact,mechanic_email,date_created,status) ";
+    $msg .="VALUES('$mechName','$mechCon','$mechEmail','$date','$status') ";
 
             $order_query = mysqli_query($conn,$msg);
             if(!$order_query){
@@ -215,8 +231,8 @@ if(isset($_POST['add'])){
          
             if($order_query)
             {
-                echo "<script>alert('Service successfully Added');</script>";
-                echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
+                echo "<script>alert('Mechanic successfully Added');</script>";
+                echo "<script type='text/javascript'> document.location = 'mechanics.php'; </script>";
             }
  }
 
@@ -231,7 +247,7 @@ if(isset($_POST['add'])){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Service</h5>
+        <h5 class="modal-title" id="exampleModalLabel">New Mechanic</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -242,13 +258,41 @@ if(isset($_POST['add'])){
 
         		<div class="col-12">
         			<div class="form-group">
-		        		<label>Services </label>
-                        <input type="text" name="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
+		        		<label>Mechanic Name</label>
+                        <input type="text" name="mname" class="form-control" placeholder="Enter Mechanic Name" required>
 		        	</div>
         		</div>
 
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Mechanic Contact </label>
+                        <input type="text" name="mcon" class="form-control" placeholder="Enter Mechanic Contact" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Mechanic Email </label>
+                        <input type="email" name="mem" class="form-control" placeholder="Enter Mechanic Email" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Date Created </label>
+                        <input type="date" data-date-inline-picker="true" name="date" class="form-control" placeholder="Enter Date"  required />		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Status </label>
+                        <input type="text" name="status" class="form-control" placeholder="Enter Status" required>
+		        	</div>
+        		</div>
+
+
         		<div class="col-12">
-        			<button type="submit" class="btn btn-primary" name="add">Add Service</button>
+        			<button type="submit" class="btn btn-primary" name="add">Add Mechanic</button>
         		</div>
         	</div>
         	

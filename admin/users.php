@@ -93,7 +93,7 @@ return true;
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                                     <div class="d-inline">
-                                                    <h4>Services List</h4>
+                                                    <h4>Users List</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +105,7 @@ return true;
                                                                 <i class="icofont icofont-home"></i>
                                                             </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="settings.php">CRUD Services </a>
+                                                        <li class="breadcrumb-item"><a href="users.php">CRUD Users </a>
                                                         </li>
                                                        
                                                     </ul>
@@ -126,15 +126,15 @@ return true;
                                     <!-- Contextual classes table starts -->
                                     <div class="card">
                                         <div class="card-header ">
-                                            <h5>Services Offered Are Listed Below</h5>
-                                            <span> click the Actions to Edit Services  </span>
+                                            <h5>Users Available Are Listed Below</h5>
+                                            <span> click the Actions to Edit User  </span>
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
 
       	<div class="col-10">
-      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Services</a>
+      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add User</a>
       	</div>
-                                <div class="col-md-12 col-xl-6">
+                                <div class="col-xl-12 col-xl-12">
                                     <div class="card project-task">
                                         <div class="card-header">
                                      
@@ -145,39 +145,50 @@ return true;
                                                     <thead>
                                                         <tr>
                                                             <th>Sno.</th>
-                                                            <th>Services</th>
+                                                            <th>Username</th>
+                                                            <th>Contact</th>
+                                                            <th>Email</th>
+                                                            <th>Date Created</th>
+                                                            <th>Password</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
-
                                                     <tfoot>
                                                         <tr>
                                                             <th>Sno.</th>
-                                                            <th>Services</th>
+                                                            <th>Username</th>
+                                                            <th>Contact</th>
+                                                            <th>Email</th>
+                                                            <th>Date Created</th>
+                                                            <th>Password</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </tfoot>
 
                                                     <tbody>
                                             <?php 
-                                                $query = "SELECT * FROM services";
+                                                $query = "SELECT * FROM users";
                                                 $select_ser = mysqli_query($conn,$query);
                                                 $cnt=1;
                                                 while($row = mysqli_fetch_assoc($select_ser)){ 
-                                                    $services_id = $row['id'];
-                                                    $services = $row['services'];
-
+                                                    $id = $row['id'];
                                             ?>
                                                         <tr class="table-hover">
                                                         <td><?php echo $cnt; ?></td>
-                                                            <td> <?php echo $services; ?> </td>
+                                                            <td> <?php echo $row["username"]; ?> </td>
+                                                            <td> <?php echo $row["phone"]; ?> </td>
+                                                            <td> <?php echo $row["email"]; ?> </td>
+                                                            <td> <?php echo $row["register_date"]; ?> </td>
+                                                            <td> <?php echo $row["password"]; ?> </td>
+
                                                             <td>
                                                             <button class="btn btn-danger" >
-                                                                <a href="services.php?delete=<?php echo $services_id   ?>"  onClick="return confirm('Do you really want to delete Service?');" > Delete </a>
+                                                                <a href="users.php?delete=<?php echo $id   ?>"  onClick="return confirm('Do you really want to delete User?');" > Delete </a>
                                                             </button>
 
                                                             <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Edit </button>
                                                             </td>
+
                                                             </tr>
 
                                                             <?php $cnt=$cnt+1; }?>
@@ -195,18 +206,22 @@ return true;
 
 
 if(isset($_GET['delete'])){
-    $the_services_id = $_GET['delete'];
+    $id = $_GET['delete'];
 
-    $query = "DELETE FROM services WHERE id = {$the_services_id}";
+    $query = "DELETE FROM users WHERE id ='$id'";
     $delete_query = mysqli_query($conn, $query);
-    echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
+    echo "<script type='text/javascript'> document.location = 'users.php'; </script>";
 }
 
 if(isset($_POST['add'])){
-    $the_service = $_POST['services'];
+$username= $_POST['username'];
+$email	= $_POST['email'];
+$phone	= $_POST['phone'];
+$password= md5($_POST['password']);	
+$register_date= $_POST['register_date'];
 
-    $msg  = "INSERT into services(services) ";
-    $msg .="VALUES('$the_service') ";
+    $msg  = "INSERT into users(username,email,phone,password,register_date) ";
+    $msg .="VALUES('$username','$email','$phone','$password','$register_date')";
 
             $order_query = mysqli_query($conn,$msg);
             if(!$order_query){
@@ -215,8 +230,8 @@ if(isset($_POST['add'])){
          
             if($order_query)
             {
-                echo "<script>alert('Service successfully Added');</script>";
-                echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
+                echo "<script>alert('User successfully Added');</script>";
+                echo "<script type='text/javascript'> document.location = 'users.php'; </script>";
             }
  }
 
@@ -231,7 +246,7 @@ if(isset($_POST['add'])){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Service</h5>
+        <h5 class="modal-title" id="exampleModalLabel">New User</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -242,13 +257,41 @@ if(isset($_POST['add'])){
 
         		<div class="col-12">
         			<div class="form-group">
-		        		<label>Services </label>
-                        <input type="text" name="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
+		        		<label> Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="Enter Username" required>
 		        	</div>
         		</div>
 
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label> Contact </label>
+                        <input type="text" name="phone" class="form-control" placeholder="Enter Contact" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Email </label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Date Registered </label>
+                        <input type="date" data-date-inline-picker="true" name="register_date" class="form-control" placeholder="Enter Date"  required />		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Password </label>
+                        <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
+		        	</div>
+        		</div>
+
+
         		<div class="col-12">
-        			<button type="submit" class="btn btn-primary" name="add">Add Service</button>
+        			<button type="submit" class="btn btn-primary" name="add">Add User</button>
         		</div>
         	</div>
         	

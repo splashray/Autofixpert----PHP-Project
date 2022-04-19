@@ -1,35 +1,76 @@
 <?php
 ob_start();
-
  session_start();
- include('./includes/db.php');
+ include('../includes/db.php');
 if (strlen($_SESSION['id']==0)) {
   header('location:logout.php');
   ob_end_flush();
 
-            
   } else{
-    if(isset($_POST['support'])){
-   
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $subject = $_POST['subject'];
-        $message = $_POST['message'];
-        
-        $query = "INSERT INTO message(name, email, subject, message) ";
-        $query .= "VALUES('{$name}','{$email}','{$subject}','{$message}' ) ";
-        
-        $msg_query = mysqli_query($conn,$query);
-        if(!$msg_query){
-            die("Query Failed". mysqli_error($conn));
-        }
-        echo "<script>alert('Message Sent and Recieved');</script>";
-        echo "<script type='text/javascript'> document.location = 'support.php'; </script>";
-        
-        }
-     
+      
+//Code for Updation 
 
+if(isset($_POST['update']))
+{
+    $username=$_POST['username'];
+    $pcontact=$_POST['contact'];
+
+    $userid=$_SESSION['id'];
+
+    $msg=mysqli_query($conn,"UPDATE users SET username='$username',phone='$pcontact' where id='$userid'") ;
+    if(!$msg){
+        die("QUERY FAILED". mysqli_error($conn));
+    }
+       else if($msg)
+        {
+            echo "<script>alert('Profile updated successfully');</script>";
+            echo "<script type='text/javascript'> document.location = 'settings.php'; </script>";
+        }
+}
+
+
+
+          // Query to update password  start here
+            
+          if(isset($_POST['change-password'])) {
+
+            $oldpassword=md5($_POST['currentpassword']); 
+            $newpassword=md5($_POST['newpassword']);
+
+            $sql=mysqli_query($conn,"SELECT password FROM users where password='$oldpassword'");
+            $num=mysqli_fetch_array($sql);
+                if($num>0)
+                {
+                $userid=$_SESSION['id'];
+                $ret=mysqli_query($conn,"update users set password='$newpassword' where id='$userid'");
+                echo "<script>alert('Password Changed Successfully !!');</script>";
+                echo "<script type='text/javascript'> document.location = 'settings.php'; </script>";
+                }
+                else
+                {
+                echo "<script>alert('Old Password not match !!');</script>";
+                echo "<script type='text/javascript'> document.location = 'settings.php'; </script>";
+                }
+     }
+
+    // Query to update password ends here
+
+  
 ?>
+
+<script language="javascript" type="text/javascript">
+function valid()
+{
+if(document.changepassword.newpassword.value!= document.changepassword.confirmpassword.value)
+{
+alert("Password and Confirm Password Field do not match  !!");
+document.changepassword.confirmpassword.focus();
+return false;
+}
+return true;
+}
+</script>
+
 <?php  include_once('./include/admin_header.php');  ?>
 <?php  include_once('./include/admin_nav.php');  ?>
  
@@ -52,7 +93,7 @@ if (strlen($_SESSION['id']==0)) {
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                                     <div class="d-inline">
-                                                    <h4>Support</h4>
+                                                    <h4>Tickets List</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,7 +105,7 @@ if (strlen($_SESSION['id']==0)) {
                                                                 <i class="icofont icofont-home"></i>
                                                             </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="support.php">Contact Support</a>
+                                                        <li class="breadcrumb-item"><a href="support.php">Support</a>
                                                         </li>
                                                        
                                                     </ul>
@@ -78,125 +119,224 @@ if (strlen($_SESSION['id']==0)) {
                                     <!-- container start here -->
 
 
-                                    
-                                <!-- Page-body start -->
-                                <div class="page-body">
+ <!-- Page-body start -->
+ <div class="page-body">
                                     
                                         
                                     <!-- Contextual classes table starts -->
                                     <div class="card">
                                         <div class="card-header ">
-                                            <h5>You can message our support online...</h5>
-                                            <span>  Or either send or call our support </span>
+                                            <h5>Tickets Available Are Listed Below</h5>
+                                            <span> click the Actions to Reply Message  </span>
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
+<!-- 
+      	<div class="col-10">
+      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Mechanics</a>
+      	</div> -->
+                                <div class="col-xl-12 col-xl-12">
+                                    <div class="card project-task">
+                                        <div class="card-header">
+                                     
+                                        </div>
+                                        <div class="card-block p-b-10">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sno.</th>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Subject</th>
+                                                            <th>Message</th>
+                                                            <th>Date</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Sno.</th>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Subject</th>
+                                                            <th>Message</th>
+                                                            <th>Date</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </tfoot>
+
+                                                    <tbody>
+                                            <?php 
+                                                $query = "SELECT * FROM message";
+                                                $select_ser = mysqli_query($conn,$query);
+                                                $cnt=1;
+                                                while($row = mysqli_fetch_assoc($select_ser)){ 
+                                                    $id = $row['message_id'];
+                                            ?>
+                                                        <tr class="table-hover">
+                                                        <td><?php echo $cnt; ?></td>
+                                                            <td> <?php echo $row["name"]; ?> </td>
+                                                            <td> <?php echo $row["email"]; ?> </td>
+                                                            <td> <?php echo $row["subject"]; ?> </td>
+                                                            <td> <?php echo $row["message"]; ?> </td>
+                                                            <td> <?php echo $row["date"]; ?> </td>
+
+                                                            <td>
+                                                            <button class="btn btn-danger" >
+                                                                <a href="support.php?delete=<?php echo $id;  ?>"  onClick="return confirm('Do you really want to delete Message?');" > Delete </a>
+                                                            </button>
+
+                                                            <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Reply </button>
+                                                            </td>
+
+                                                            </tr>
+
+                                                            <?php $cnt=$cnt+1; }?>
 
 
-                                        <div class="card-block tab-icon">
-                                                        <!-- Row start -->
-                                                        <div class="row">
-                                                            <div class="col-lg-12 col-xl-6">
-                                                                <!-- <h6 class="sub-title">Tab With Icon</h6> -->
-                                                                <!-- Nav tabs -->
-                                                                <ul class="nav nav-tabs md-tabs " role="tablist">
-                                                                   
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#profile7" role="tab"><i class="icofont icofont-ui-user "></i>Contact Support</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#messages7" role="tab"><i class="icofont icofont-ui-message"></i>Send Us Messages</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                   
-                                                                </ul>
-                                                                <!-- Tab panes -->
-                                                                <div class="tab-content card-block">
-                                                                    
-                                                                    <div class="tab-pane" id="profile7" role="tabpanel">
-                                                                        <p class="m-0">
-                                                                        <h5> Call Us</h5>
-                  <p>+2349012345678  </p>
+                                                    </tbody>
+                                                </table>
 
-                  
-                  <h5>Email Us</h5>
-                  <p>info@autofixpert.com.ng</p>
-
-                  <h5>Our Physical address</h5>
-                  <p>Kwara State  <br> Polytechnic, <br> Ilorin Kwara State <br></p>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="messages7" role="tabpanel">
-                                                                        <p class="m-0 center" id ="big">
-
-
-
-
-
-            <form action="" method="post"  >
-              <div class="row">
-                <div class="col form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              
-              <div class="text-center"><button type="submit" class="btn btn-primary" name="support">Send Message</button></div>
-            </form>
-              
-              
-
-
-
-
-
-
-
-
-
-
-                                                                        </p>
-                                                                    </div>
-                                                                    
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <!-- Row end -->
-                                                    </div>
-                                                </div>
-                                                <!-- Tab variant tab card start -->
-                                        
-
-
-
-
-
-
-
-
-
-
-
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- Contextual classes table ends -->
-                                    
-
-
                                 </div>
-                                <!-- Page-body end -->
+                                <!-- end of task -->
+ <?php 
+
+
+if(isset($_GET['delete'])){
+    $id = $_GET['delete'];
+
+    $query = "DELETE FROM message WHERE message_id ='$id'";
+    $delete_query = mysqli_query($conn, $query);
+    echo "<script type='text/javascript'> document.location = 'support.php'; </script>";
+}
+
+
+?>
+
+                                
+      
+<!-- Add Product Modal start -->
+
+
+<div class="modal fade" id="add_product_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Mechanic</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add-product-form"  method="post">
+        	<div class="row">
+
+        		<div class="col-12">
+        			<div class="form-group">
+		        		<label>Mechanic Name</label>
+                        <input type="text" name="mname" class="form-control" placeholder="Enter Mechanic Name" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Mechanic Contact </label>
+                        <input type="text" name="mcon" class="form-control" placeholder="Enter Mechanic Contact" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Mechanic Email </label>
+                        <input type="email" name="mem" class="form-control" placeholder="Enter Mechanic Email" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Date Created </label>
+                        <input type="date" data-date-inline-picker="true" name="date" class="form-control" placeholder="Enter Date"  required />		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Status </label>
+                        <input type="text" name="status" class="form-control" placeholder="Enter Status" required>
+		        	</div>
+        		</div>
+
+
+        		<div class="col-12">
+        			<button type="submit" class="btn btn-primary" name="add">Add Mechanic</button>
+        		</div>
+        	</div>
+        	
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Product Modal end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </div>
+
+
+                                            </div>
+                                            <!-- end edit details -->
+
+
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
 
 
 
                                     <!-- end of conatiner -->
            
 
-<?php }include_once('./include/admin_footer.php') ?>
+<?php } include_once('./include/admin_footer.php') ?>

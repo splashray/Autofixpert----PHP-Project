@@ -13,7 +13,7 @@
                             <i class="ti-search"></i>
                         </a>
                         <a href="index.html">
-                            <img class="img-fluid" src="../assets/images/logo.png" alt="Theme-Logo" />
+                            <img class="img-fluid" src="../assets/images/logo1.png" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="ti-more"></i>
