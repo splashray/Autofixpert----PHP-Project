@@ -46,7 +46,7 @@ if (strlen($_SESSION['id'] == 0)) {
                                                         <i class="icofont icofont-home"></i>
                                                     </a>
                                                 </li>
-                                                <li class="breadcrumb-item"><a href="check_request.php">Check All Requests</a>
+                                                <li class="breadcrumb-item"><a href="submit_request.php">Send another Request</a>
                                                 </li>
 
                                             </ul>
@@ -195,9 +195,7 @@ function showDetails(button){
                 $("#add").text(customer.address);
                 $("#msg").text(customer.message);
                 $("#sta").text(customer.status);
-
-
-                    $("#myModalLabel").text(customer.request_ref);
+                $("#myModalLabel").text(customer.request_ref);
             }
 
         });

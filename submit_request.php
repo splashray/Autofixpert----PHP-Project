@@ -151,10 +151,10 @@ if (strlen($_SESSION['id']==0)) {
                                         $service = $row['services'];
                                     
 
-                                            echo "<option value='{$id}'>{$service}</option>";
+                                            echo "<option value='{$service}'>{$service}</option>";
 
                                         } ?>
-                            </select>
+                                                 </select>
                                                     </div>
                                                     <div class="input-group">
                                                         <span class="input-group-addon" id="request"><i class="ti-shopping-cart"></i></span>

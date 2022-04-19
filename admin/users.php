@@ -149,7 +149,6 @@ return true;
                                                             <th>Contact</th>
                                                             <th>Email</th>
                                                             <th>Date Created</th>
-                                                            <th>Password</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
@@ -160,7 +159,6 @@ return true;
                                                             <th>Contact</th>
                                                             <th>Email</th>
                                                             <th>Date Created</th>
-                                                            <th>Password</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </tfoot>
@@ -179,14 +177,12 @@ return true;
                                                             <td> <?php echo $row["phone"]; ?> </td>
                                                             <td> <?php echo $row["email"]; ?> </td>
                                                             <td> <?php echo $row["register_date"]; ?> </td>
-                                                            <td> <?php echo $row["password"]; ?> </td>
 
                                                             <td>
                                                             <button class="btn btn-danger" >
                                                                 <a href="users.php?delete=<?php echo $id   ?>"  onClick="return confirm('Do you really want to delete User?');" > Delete </a>
                                                             </button>
-
-                                                            <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Edit </button>
+                                                            <!-- <button class="btn btn-success editbtn" > Edit </button> -->
                                                             </td>
 
                                                             </tr>
@@ -303,102 +299,77 @@ $register_date= $_POST['register_date'];
 </div>
 <!-- Add Product Modal end -->
 
-
-
-
+<!-- ###################################################################################### -->
 
 
 <?php
 
-if(isset($_GET['edit'])){
-    $services_id = $_GET['edit'];
-
-    // $query = "UPDATE FROM services WHERE id = {$services_id}";
-    // $upd_query = mysqli_query($conn, $query);
-    // echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
-
-$query = "SELECT * FROM services WHERE id = $services_id ";
-$select_services_id = mysqli_query($con,$query);
-while($row = mysqli_fetch_assoc($select_services_id)){
-	$services = $row['services'];
 
 ?>
+<!-- edit users Modal start -->
+<!-- 
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form id="add-product-form"  method="post">
+        	<div class="row">
+
+        		<div class="col-12">
+        			<div class="form-group">
+		        		<label> Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="Enter Username" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label> Contact </label>
+                        <input type="text" name="phone" class="form-control" placeholder="Enter Contact" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Email </label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Date Registered </label>
+                        <input type="date" data-date-inline-picker="true" name="register_date" class="form-control" placeholder="Enter Date"  required />		        	</div>
+        		</div>
+
+                <div class="col-12">
+        			<div class="form-group">
+		        		<label>Password </label>
+                        <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
+		        	</div>
+        		</div>
 
 
-<!-- edit Product Modal start -->
+        		<div class="col-12">
+        			<button type="submit" class="btn btn-primary" name="update">Update User</button>
+        		</div>
+        	</div>
+        	
+        </form>
 
-<!-- Modal -->
-<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
-   aria-labelledby = "myModalLabel" aria-hidden = "true">
-   
-   <div class = "modal-dialog">
-      <div class = "modal-content">
-         
-         <div class = "modal-header">
-            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
-                  &times;
-            </button>
-            
-            <h4 class = "modal-title" id = "myModalLabel">
-               Service Information
-            </h4>
-         </div>
-         
-         <div class = "modal-body">
-                    <form id="add-product-form"  method="post">
-                        <div class="row">
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- edit users Modal end -->
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Services </label>
-                                    <input type="text" name="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary" name="edit">Edit Service</button>
-                            </div>
-                        </div>
-                        
-                    </form>     
-
-
-         </div>
-         
-         
-         
-      </div><!-- /.modal-content -->
-   </div><!-- /.modal-dialog -->
-  
-</div><!-- /.modal -->
-<!-- edit Product Modal end -->
-<?php  }}?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- ###################################################################################### -->
 
 
 
@@ -424,3 +395,35 @@ while($row = mysqli_fetch_assoc($select_services_id)){
            
 
 <?php } include_once('./include/admin_footer.php') ?>
+
+
+
+<script>
+
+$(document).ready(function () {
+    $('.editbtn').on('click', function(){
+
+        $('#editmodal').modal('show');
+
+        // $tr= $(this).closest('tr');
+
+        // var data = $tr.children("td").map(function(){
+        //     return $(this).text();
+        // }).get();
+
+        // console.log(data);
+
+        // $('#update_id').val(data[0]);
+        // $('#services').val(data[1]);
+
+
+
+    });
+
+});
+
+
+
+
+
+</script>

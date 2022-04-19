@@ -105,7 +105,7 @@ return true;
                                                                 <i class="icofont icofont-home"></i>
                                                             </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="service_request.php">CRUD Request </a>
+                                                        <li class="breadcrumb-item"><a href="finished.php">Go to Finished Request </a>
                                                         </li>
                                                        
                                                     </ul>
@@ -157,6 +157,7 @@ return true;
                                                             <th>Message	</th>
                                                             <th>Address	</th>
                                                             <th>Status</th>
+                                                            <th>Delete</th>
                                                             <th>Actions</th>
 
                                                         </tr>
@@ -177,6 +178,7 @@ return true;
                                                             <th>Message	</th>
                                                             <th>Address	</th>
                                                             <th>Status</th>
+                                                            <th>Delete</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </tfoot>
@@ -192,7 +194,7 @@ return true;
                                                         <tr class="table-hover">
                                                         <td><?php echo $cnt; ?></td>
                                                             <td> <?php echo $row["request_ref"]; ?> </td>	
-                                                            <td> <?php echo $row["services"]; ?> </td>	
+                                                            <td> <?php echo $row["services"]; ?>  </td>	
                                                             <td> <?php echo $row["request_type"]; ?> </td>	
                                                             <td> <?php echo $row["name"]; ?> </td>	
                                                             <td> <?php echo $row["vehicle_num"]; ?> </td>	
@@ -205,11 +207,18 @@ return true;
                                                             <td> <?php echo $row["status"]; ?> </td>
 
                                                             <td>
-                                                            <button class="btn btn-danger" >
-                                                                <a href="service_request.php?delete=<?php echo $id   ?>"  onClick="return confirm('Do you really want to delete Request?');" > Delete </a>
-                                                            </button>
-
-                                                            <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Edit </button>
+                                                                <button class="btn btn-danger" >
+                                                                    <a href="service_request.php?delete=<?php echo $id   ?>"  onClick="return confirm('Do you really want to delete Request?');" > Delete </a>
+                                                                </button>
+                                                            </td>
+                                                            <td>
+            <a href="service_request.php?IN-Progess=<?php echo $id; ?>"  onClick="return confirm('Do you really want to in-progress the order?');" > IN-Progress Request </a>
+                        <br><br>
+            <a href="service_request.php?Completed=<?php echo $id; ?>"  onClick="return confirm('Do you really want to complete the order?');" > Complete Request </a>
+                        <br><br>
+            <a href="service_request.php?pending=<?php echo $id; ?>"  onClick="return confirm('Do you really want to pend the order?');" > Pend Request </a>
+            </td>
+                                                            
                                                             </td>
 
                                                             </tr>
@@ -227,7 +236,38 @@ return true;
                                 <!-- end of task -->
  <?php 
 
+if(isset($_GET['IN-Progess'])){
+    $order_id =  $_GET['IN-Progess'];
+    
+    $query = "UPDATE appointment SET status = 'IN-Progress Request' where id =$order_id";
 
+    $app_query = mysqli_query($conn,$query); 
+    echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
+
+    }
+     ///////////////////////////////////////////////////////////////////
+
+     if(isset($_GET['Completed'])){
+        $order_id =  $_GET['Completed'];
+        
+        $query = "UPDATE appointment SET status = 'Completed Request' where id =$order_id";
+    
+        $app_query = mysqli_query($conn,$query); 
+        echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
+    
+        }
+    ///////////////////////////////////////////////////////////////////
+
+     if(isset($_GET['pending'])){
+        $order_id =  $_GET['pending'];
+        
+        $query = "UPDATE appointment SET status = 'pending Request' where id =$order_id";
+    
+        $app_query = mysqli_query($conn,$query); 
+        echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
+    
+        }
+    /////////////////////////////////////////////////////////////////////
 if(isset($_GET['delete'])){
     $id = $_GET['delete'];
 
@@ -235,7 +275,7 @@ if(isset($_GET['delete'])){
     $delete_query = mysqli_query($conn, $query);
     echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
 }
-
+    //////////////////////////////////////////////////////////////////
 if(isset($_POST['add'])){
 
                 $request_ref= $_POST['request_ref'];	
@@ -301,19 +341,37 @@ if(isset($_POST['add'])){
         <form id="add-product-form"  method="post">
         	<div class="row">
 
-        		<div class="col-12">
-        			<div class="form-group">
-		        		<label>Services </label>
-                        <input type="text" name="services" class="form-control" placeholder="Enter Service" required>
-		        	</div>
-        		</div>
+                <div class="col-12">
+        			<div class="form-group">     
+                    <label> Service Type </label>         
+                        <select name="services" id="services" class="form-control" required />
+                        <option value=''>Choose Mechanical Service </option>
+                                <?php
+
+                                    $query = "SELECT * FROM services";
+                                    $fetch_ser = mysqli_query($conn,$query);
+
+                                    while($row = mysqli_fetch_assoc($fetch_ser)){
+                                        $id = $row['id'];
+                                        $service = $row['services'];
+                                            echo "<option value='{$service}'>{$service}</option>";
+                                        } ?>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="col-12">
         			<div class="form-group">
 		        		<label> Request Type </label>
-                        <input type="text" name="request_type" class="form-control" placeholder="Enter Request Type" required>
+                        <select name="request_type" id="request" class="form-control"  required />
+                        <option value=''>Choose Request Type </option>
+                        <option value='Pick-up'>Pick Up </option>
+                        <option value='Drop-off'>Drop Off </option>
+                        </select>
 		        	</div>
         		</div>
+
+               
 
                 <div class="col-12">
         			<div class="form-group">
@@ -388,101 +446,7 @@ if(isset($_POST['add'])){
 
 
 
-
-
-
-<?php
-
-if(isset($_GET['edit'])){
-    $services_id = $_GET['edit'];
-
-    // $query = "UPDATE FROM services WHERE id = {$services_id}";
-    // $upd_query = mysqli_query($conn, $query);
-    // echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
-
-$query = "SELECT * FROM services WHERE id = $services_id ";
-$select_services_id = mysqli_query($con,$query);
-while($row = mysqli_fetch_assoc($select_services_id)){
-	$services = $row['services'];
-
-?>
-
-
-<!-- edit Product Modal start -->
-
-<!-- Modal -->
-<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
-   aria-labelledby = "myModalLabel" aria-hidden = "true">
-   
-   <div class = "modal-dialog">
-      <div class = "modal-content">
-         
-         <div class = "modal-header">
-            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
-                  &times;
-            </button>
-            
-            <h4 class = "modal-title" id = "myModalLabel">
-               Service Information
-            </h4>
-         </div>
-         
-         <div class = "modal-body">
-                    <form id="add-product-form"  method="post">
-                        <div class="row">
-
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Services </label>
-                                    <input type="text" name="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary" name="edit">Edit Service</button>
-                            </div>
-                        </div>
-                        
-                    </form>     
-
-
-         </div>
-         
-         
-         
-      </div><!-- /.modal-content -->
-   </div><!-- /.modal-dialog -->
-  
-</div><!-- /.modal -->
-<!-- edit Product Modal end -->
-<?php  }}?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- ###################################################################################### -->
 
 
 
@@ -507,3 +471,4 @@ while($row = mysqli_fetch_assoc($select_services_id)){
            
 
 <?php } include_once('./include/admin_footer.php') ?>
+

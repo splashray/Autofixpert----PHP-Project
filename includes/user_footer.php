@@ -10,7 +10,7 @@
         </div>
     </div>
 <div class="fixed-button">
-	<a href="#" target="_blank" class="btn btn-md btn-primary">
+	<a href="support.php" class="btn btn-md btn-primary">
 	  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Chat With Support
 	</a>
 </div>

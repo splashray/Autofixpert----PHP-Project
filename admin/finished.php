@@ -126,14 +126,11 @@ return true;
                                     <!-- Contextual classes table starts -->
                                     <div class="card">
                                         <div class="card-header ">
-                                            <h5>Finished Service Requests Available Are Listed Below</h5>
-                                            <span> click the Actions to Edit Finished Request  </span>
+                                        <h5>Finished Service Requests Available Are Listed Below</h5>
+                                            <span> click the Actions to Edit Finished Request </span>
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
-<!-- 
-      	<div class="col-10">
-      		<a href="#" data-toggle="modal" data-target="#add_product_modal" class="btn btn-primary btn-sm">Add Request</a>
-      	</div> -->
+
                                 <div class="col-xl-12 col-xl-12">
                                     <div class="card project-task">
                                         <div class="card-header">
@@ -157,6 +154,7 @@ return true;
                                                             <th>Message	</th>
                                                             <th>Address	</th>
                                                             <th>Status</th>
+                                                            <th>Delete</th>
                                                             <th>Actions</th>
 
                                                         </tr>
@@ -177,13 +175,14 @@ return true;
                                                             <th>Message	</th>
                                                             <th>Address	</th>
                                                             <th>Status</th>
+                                                            <th>Delete</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </tfoot>
 
                                                     <tbody>
                                             <?php 
-                                                $query = "SELECT * FROM appointment";
+                                                $query = "SELECT * FROM appointment WHERE status= 'Completed Request' ";
                                                 $select_ser = mysqli_query($conn,$query);
                                                 $cnt=1;
                                                 while($row = mysqli_fetch_assoc($select_ser)){ 
@@ -192,7 +191,7 @@ return true;
                                                         <tr class="table-hover">
                                                         <td><?php echo $cnt; ?></td>
                                                             <td> <?php echo $row["request_ref"]; ?> </td>	
-                                                            <td> <?php echo $row["services"]; ?> </td>	
+                                                            <td> <?php echo $row["services"]; ?>  </td>	
                                                             <td> <?php echo $row["request_type"]; ?> </td>	
                                                             <td> <?php echo $row["name"]; ?> </td>	
                                                             <td> <?php echo $row["vehicle_num"]; ?> </td>	
@@ -205,11 +204,18 @@ return true;
                                                             <td> <?php echo $row["status"]; ?> </td>
 
                                                             <td>
-                                                            <button class="btn btn-danger" >
-                                                                <a href="service_request.php?delete=<?php echo $id   ?>"  onClick="return confirm('Do you really want to delete Request?');" > Delete </a>
-                                                            </button>
-
-                                                            <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Edit </button>
+                                                                <button class="btn btn-danger" >
+                                                                    <a href="service_request.php?delete=<?php echo $id   ?>"  onClick="return confirm('Do you really want to delete Request?');" > Delete </a>
+                                                                </button>
+                                                            </td>
+                                                            <td>
+            <a href="service_request.php?IN-Progess=<?php echo $id; ?>"  onClick="return confirm('Do you really want to in-progress the order?');" > IN-Progress Request </a>
+                        <br><br>
+            <a href="service_request.php?Completed=<?php echo $id; ?>"  onClick="return confirm('Do you really want to complete the order?');" > Complete Request </a>
+                        <br><br>
+            <a href="service_request.php?pending=<?php echo $id; ?>"  onClick="return confirm('Do you really want to pend the order?');" > Pend Request </a>
+            </td>
+                                                            
                                                             </td>
 
                                                             </tr>
@@ -227,7 +233,38 @@ return true;
                                 <!-- end of task -->
  <?php 
 
+if(isset($_GET['IN-Progess'])){
+    $order_id =  $_GET['IN-Progess'];
+    
+    $query = "UPDATE appointment SET status = 'IN-Progress Request' where id =$order_id";
 
+    $app_query = mysqli_query($conn,$query); 
+    echo "<script type='text/javascript'> document.location = 'finished.php'; </script>";
+
+    }
+     ///////////////////////////////////////////////////////////////////
+
+     if(isset($_GET['Completed'])){
+        $order_id =  $_GET['Completed'];
+        
+        $query = "UPDATE appointment SET status = 'Completed Request' where id =$order_id";
+    
+        $app_query = mysqli_query($conn,$query); 
+        echo "<script type='text/javascript'> document.location = 'finished.php'; </script>";
+    
+        }
+    ///////////////////////////////////////////////////////////////////
+
+     if(isset($_GET['pending'])){
+        $order_id =  $_GET['pending'];
+        
+        $query = "UPDATE appointment SET status = 'pending Request' where id =$order_id";
+    
+        $app_query = mysqli_query($conn,$query); 
+        echo "<script type='text/javascript'> document.location = 'finished.php'; </script>";
+    
+        }
+    /////////////////////////////////////////////////////////////////////
 if(isset($_GET['delete'])){
     $id = $_GET['delete'];
 
@@ -235,41 +272,58 @@ if(isset($_GET['delete'])){
     $delete_query = mysqli_query($conn, $query);
     echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
 }
+    //////////////////////////////////////////////////////////////////
+if(isset($_POST['add'])){
 
+                $request_ref= $_POST['request_ref'];	
+                $services	= $_POST['services'];
+                $request_type= $_POST['request_type'];
+                $name	= $_POST['name'];
+                $vehicle_num= $_POST['vehicle_num'];
+                $email	= $_POST['email'];
+                $phone	= $_POST['phone'];
+                $date	= $_POST['date'];
+                $time	= $_POST['time'];
+                $message= $_POST['message'];	
+                $address= $_POST['address'];	
+
+
+                            $data = 0;
+                                                
+                            $ref_no = mt_rand(1,99999999);
+                            $i= 1;
+                        
+                                while($i== 1){
+                                    $check = mysqli_query($conn,"SELECT * FROM appointment where request_ref ='$ref_no' ")->num_rows;
+                                    if($check > 0){
+                                    $ref_no = mt_rand(1,99999999);
+                                    }else{
+                                        $i = 0;
+                                    }
+                                }
+                                $data .= " , request_ref = '$ref_no' ";
+
+            $msg  = "INSERT into appointment(request_ref,services,request_type,name,vehicle_num,email,phone,date,time,message,address) ";
+            $msg .="VALUES('$ref_no','$services','$request_type','$name','$vehicle_num','$email','$phone','$date','$time','$message','$address') ";
+
+            $order_query = mysqli_query($conn,$msg);
+            if(!$order_query){
+                die("Query Failed". mysqli_error($conn));
+            }
+         
+            if($order_query)
+            {
+                echo "<script>alert('Request successfully Added');</script>";
+                echo "<script type='text/javascript'> document.location = 'service_request.php'; </script>";
+            }
+ }
 
 ?>
 
                                 
-      
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- ###################################################################################### -->
 
 
 
@@ -294,3 +348,4 @@ if(isset($_GET['delete'])){
            
 
 <?php } include_once('./include/admin_footer.php') ?>
+

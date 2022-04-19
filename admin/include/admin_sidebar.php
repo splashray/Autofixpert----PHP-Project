@@ -1,13 +1,13 @@
 <nav class="pcoded-navbar">
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
-                            <div class="pcoded-search">
+                            <!-- <div class="pcoded-search">
                                 <span class="searchbar-toggle">  </span>
                                 <div class="pcoded-search-box ">
                                     <input type="text" placeholder="Search">
                                     <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
                                 </div>
-                            </div>
+                            </div> -->
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
                                     <a href="home.php">

@@ -7,53 +7,6 @@ if (strlen($_SESSION['id']==0)) {
   ob_end_flush();
 
   } else{
-      
-//Code for Updation 
-
-if(isset($_POST['update']))
-{
-    $username=$_POST['username'];
-    $pcontact=$_POST['contact'];
-
-    $userid=$_SESSION['id'];
-
-    $msg=mysqli_query($conn,"UPDATE users SET username='$username',phone='$pcontact' where id='$userid'") ;
-    if(!$msg){
-        die("QUERY FAILED". mysqli_error($conn));
-    }
-       else if($msg)
-        {
-            echo "<script>alert('Profile updated successfully');</script>";
-            echo "<script type='text/javascript'> document.location = 'settings.php'; </script>";
-        }
-}
-
-
-
-          // Query to update password  start here
-            
-          if(isset($_POST['change-password'])) {
-
-            $oldpassword=md5($_POST['currentpassword']); 
-            $newpassword=md5($_POST['newpassword']);
-
-            $sql=mysqli_query($conn,"SELECT password FROM users where password='$oldpassword'");
-            $num=mysqli_fetch_array($sql);
-                if($num>0)
-                {
-                $userid=$_SESSION['id'];
-                $ret=mysqli_query($conn,"update users set password='$newpassword' where id='$userid'");
-                echo "<script>alert('Password Changed Successfully !!');</script>";
-                echo "<script type='text/javascript'> document.location = 'settings.php'; </script>";
-                }
-                else
-                {
-                echo "<script>alert('Old Password not match !!');</script>";
-                echo "<script type='text/javascript'> document.location = 'settings.php'; </script>";
-                }
-     }
-
-    // Query to update password ends here
 
   
 ?>
@@ -172,13 +125,14 @@ return true;
                                                         <td><?php echo $cnt; ?></td>
                                                             <td> <?php echo $services; ?> </td>
                                                             <td>
-                                                            <button class="btn btn-danger" >
+                                                                <button class="btn btn-danger" >
                                                                 <a href="services.php?delete=<?php echo $services_id   ?>"  onClick="return confirm('Do you really want to delete Service?');" > Delete </a>
-                                                            </button>
+                                                                </button>
 
-                                                            <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal"> Edit </button>
+                                                                <button type="button" class="btn btn-success editbtn"> Edit
+                                                                </button>
                                                             </td>
-                                                            </tr>
+                                                        </tr>
 
                                                             <?php $cnt=$cnt+1; }?>
 
@@ -221,12 +175,9 @@ if(isset($_POST['add'])){
  }
 
 ?>
-
                                 
       
-<!-- Add Product Modal start -->
-
-
+<!-- Add service Modal start -->
 <div class="modal fade" id="add_product_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -258,126 +209,117 @@ if(isset($_POST['add'])){
     </div>
   </div>
 </div>
-<!-- Add Product Modal end -->
+<!-- Add service Modal end -->
+
+<!-- ###################################################################################### -->
+
+<?php 
 
 
+if(isset($_POST['update'])){
 
+    $id = $_POST['update_id'];
+    $services = $_POST['services'];
 
+    $query =mysqli_query($conn,"UPDATE services SET services='$services' WHERE id='$id'");
+    if($query)
+            {
+                echo "<script>alert('Service successfully Updated');</script>";
+                echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
+            }
 
-
-<?php
-
-if(isset($_GET['edit'])){
-    $services_id = $_GET['edit'];
-
-    // $query = "UPDATE FROM services WHERE id = {$services_id}";
-    // $upd_query = mysqli_query($conn, $query);
-    // echo "<script type='text/javascript'> document.location = 'services.php'; </script>";
-
-$query = "SELECT * FROM services WHERE id = $services_id ";
-$select_services_id = mysqli_query($con,$query);
-while($row = mysqli_fetch_assoc($select_services_id)){
-	$services = $row['services'];
-
+}
 ?>
+<!-- edit service Modal start -->
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Service</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id=""  method="post">
+        	<div class="row">
 
+                <input type="hidden" name="update_id" id="update_id">
 
-<!-- edit Product Modal start -->
+        		<div class="col-12">
+        			<div class="form-group">
+		        		<label>Services </label>
+                        <input type="text" name="services" id="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
+		        	</div>
+        		</div>
 
-<!-- Modal -->
-<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
-   aria-labelledby = "myModalLabel" aria-hidden = "true">
-   
-   <div class = "modal-dialog">
-      <div class = "modal-content">
-         
-         <div class = "modal-header">
-            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
-                  &times;
-            </button>
-            
-            <h4 class = "modal-title" id = "myModalLabel">
-               Service Information
-            </h4>
-         </div>
-         
-         <div class = "modal-body">
-                    <form id="add-product-form"  method="post">
-                        <div class="row">
+        		<div class="col-12">
+        			<button type="submit" class="btn btn-primary" name="update">Update Service</button>
+        		</div>
+        	</div>
+        	
+        </form>
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Services </label>
-                                    <input type="text" name="services" class="form-control" placeholder="Enter Services " value="<?php if(isset($_POST['services'])){ echo $services; } ?>">
-                                </div>
-                            </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- edit service Modal end -->
 
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary" name="edit">Edit Service</button>
-                            </div>
-                        </div>
-                        
-                    </form>     
-
-
-         </div>
-         
-         
-         
-      </div><!-- /.modal-content -->
-   </div><!-- /.modal-dialog -->
-  
-</div><!-- /.modal -->
-<!-- edit Product Modal end -->
-<?php  }}?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- ###################################################################################### -->
 
 
                                             </div>
-
-
                                             </div>
                                             <!-- end edit details -->
-
-
                                                
                                             </div>
                                         </div>
                                     </div>
 
-
-
-                                    <!-- end of conatiner -->
-           
+                                    <!-- end of conatiner -->     
 
 <?php } include_once('./include/admin_footer.php') ?>
+
+
+<script>
+
+$(document).ready(function () {
+    $('.editbtn').on('click', function(){
+
+        $('#editmodal').modal('show');
+
+        $tr= $(this).closest('tr');
+
+        var data = $tr.children("td").map(function(){
+            return $(this).text();
+        }).get();
+
+        console.log(data);
+
+        $('#update_id').val(data[0]);
+        $('#services').val(data[1]);
+
+
+
+    });
+
+});
+
+
+
+
+
+
+</script>
+
+
+<!-- Change Oil	
+Engine Tune up	
+Overall Checkup	
+Tire Replacement
+Engine Repair
+Battery Replace
+Tow Truck -->
+	
+
