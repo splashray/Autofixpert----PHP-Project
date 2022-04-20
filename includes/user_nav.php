@@ -12,7 +12,7 @@
                         <a class="mobile-search morphsearch-search" href="#">
                             <i class="ti-search"></i>
                         </a>
-                        <a href="home.php">
+                        <a href="home.php"> <h3> Autofixpert </h3>
                             <!-- <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" /> -->
                         </a>
                         <a class="mobile-options">

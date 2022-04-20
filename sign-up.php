@@ -98,7 +98,7 @@ return true;
                     <div class="signup-card card-block auth-body mr-auto ml-auto">
                         <form class="md-float-material" name="signup" onsubmit="return checkpass();" method="post">
                             <div class="text-center">
-                                <img src="assets/images/logo2.png" alt="logo.png">
+                                <!-- <img src="assets/images/logo2.png" alt="logo.png"> -->
                             </div>
                             <div class="auth-box">
                                 <div class="row m-b-20">
@@ -139,15 +139,7 @@ return true;
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="checkbox-fade fade-in-primary">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                <span class="text-inverse">Send me the <a href="#!">Newsletter</a> weekly.</span>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
@@ -161,7 +153,7 @@ return true;
                                         <p class="text-inverse text-left"><b>Your AutoFixpert Company</b></p>
                                     </div>
                                     <div class="col-md-2">
-                                    <img src="assets/images/logo.png" alt="small-logo.png" class="responsive">
+                                        <img style="width: 50px;" src="./images/THE AUTO FIXPERT.png" alt="small-logo.png" class="responsive">
                                     </div>
                                 </div>
                             </div>

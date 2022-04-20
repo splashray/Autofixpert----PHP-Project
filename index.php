@@ -1,3 +1,65 @@
+<?php
+include('./includes/db.php');
+
+if(isset($_POST['submits']))
+{
+$service=$_POST['optservices'];
+$request=$_POST['optrequest'];
+$name=$_POST['name'];
+$vnum=$_POST['vnum'];
+$email=$_POST['email'];
+$phone=$_POST['phone'];
+$date=$_POST['date'];
+$time=$_POST['time'];
+
+
+
+$service = mysqli_real_escape_string($conn, $service);
+$request = mysqli_real_escape_string($conn, $request);
+$name = mysqli_real_escape_string($conn, $name);
+$vnum = mysqli_real_escape_string($conn, $vnum);
+$email = mysqli_real_escape_string($conn, $email);
+$phone = mysqli_real_escape_string($conn, $phone);
+$date = mysqli_real_escape_string($conn, $date);
+$time = mysqli_real_escape_string($conn, $time);
+
+
+$data = 0;
+                                  
+$ref_no = mt_rand(1,99999999);
+$i= 1;
+
+    while($i== 1){
+        $check = mysqli_query($conn,"SELECT * FROM appointment where request_ref ='$ref_no' ")->num_rows;
+        if($check > 0){
+        $ref_no = mt_rand(1,99999999);
+        }else{
+            $i = 0;
+        }
+    }
+    $data .= " , request_ref = '$ref_no' ";
+
+   
+                $msg  = "INSERT into appointment(request_ref,services,request_type,name,vehicle_num,email,phone,date,time) ";
+                $msg .="VALUES('$ref_no','$service','$request','$name','$vnum','$email','$phone','$date','$time') ";
+
+                 $order_query = mysqli_query($conn,$msg);
+                 if(!$order_query){
+                     die("Query Failed". mysqli_error($conn));
+                 }
+                
+            if($order_query)
+            {
+                echo "<script>alert('Request successfully Booked');</script>";
+                echo "<script type='text/javascript'> document.location = 'index.php'; </script>";
+            }
+        
+}
+    
+    
+     
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -157,50 +219,60 @@
                 <h2>Book a Service Request</h2>
                 <h4 style="text-transform: uppercase;">Competent and Professional Mechanical Engineers Available</h4>
             </div>
-            <form action="">
+            <form action="" method="post">
                 <div>
-                    <select name="" id="">
-                        <option value="">Select services</option>
-                        <option value="">Oil Change</option>
-                        <option value="">Vehicle Batteries</option>
-                        <option value="">Tow Truck</option>
-                        <option value="">Tyre Change</option>
-                        <option value="">Engine Repair</option>
-                        <option value="">Car Maintenance</option>
-                    </select>
-                    <select name="" id="">
+
+                   
+
+                    <select name="optservices" required />
+                        <option value=''>Choose Mechanical Service </option>
+                                <?php
+                                    
+                                    $query = "SELECT * FROM services";
+                                    $fetch_ser = mysqli_query($conn,$query);
+
+                                    while($row = mysqli_fetch_assoc($fetch_ser)){
+                                        $id = $row['id'];
+                                        $service = $row['services'];
+
+                                            echo "<option value='{$service}'>{$service}</option>";
+                                 } ?>
+                     </select>
+
+                    <select name="optrequest" id="">
                         <option value="">Select request type</option>
-                        <option value="">Pick Up</option>
-                        <option value="">Drop Off</option>
+                        <option value="pick-up">Pick Up</option>
+                        <option value="drop-off">Drop Off</option>
                     </select>
                 </div>
+
                 <div>
                     <label>
-                        <input type="text" name="" id="" placeholder="Your Name" required>
+                        <input type="text" name="name" id="" placeholder="Your Name" required>
                     </label>
                     <label>
-                        <input type="text" name="" id="" placeholder="Vehicle Number" required>
+                        <input type="text" name="vnum" id="" placeholder="Vehicle Number" required>
                     </label>
                 </div>
                 <div>
                     <label>
-                        <input type="email" name="" id="" placeholder="Your Email" required>
+                        <input type="email" name="email" id="" placeholder="Your Email" required>
                     </label>
                     <label>
-                        <input type="tel" name="" id="" placeholder="Contact No." required>
+                        <input type="tel" name="phone" id="" placeholder="Contact No." required>
                     </label>
                 </div>
                 <div>
                     <label>
                         <sub style="text-align: left;">Date</sub>
-                        <input type="date" name="" id="" required>
+                        <input type="date" name="date" id="" required>
                     </label>
                     <label>
                         <sub>Time</sub>
-                        <input type="time" name="" id="" required>
+                        <input type="time" name="time" id="" required>
                     </label>
                 </div>
-                <button type="submit">SEND REQUEST</button>
+                <button type="submit" name="submits" >SEND REQUEST</button>
             </form>
         </div>
     </div>

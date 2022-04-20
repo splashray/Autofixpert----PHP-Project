@@ -12,8 +12,8 @@
                         <a class="mobile-search morphsearch-search" href="#">
                             <i class="ti-search"></i>
                         </a>
-                        <a href="index.html">
-                            <img class="img-fluid" src="../assets/images/logo1.png" alt="Theme-Logo" />
+                        <a href="home.php"> <h3> Autofixpert </h3>
+                            <!-- <img class="img-fluid" src="../assets/images/logo1.png" alt="Theme-Logo" /> -->
                         </a>
                         <a class="mobile-options">
                             <i class="ti-more"></i>
